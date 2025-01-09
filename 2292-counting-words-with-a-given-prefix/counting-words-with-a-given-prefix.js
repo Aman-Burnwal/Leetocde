@@ -8,7 +8,7 @@ var prefixCount = function(words, pref) {
 
     for(const word of words) {
 
-        if(word.substring(0, len) == pref)count++;
+        if(word.includes(pref) && word.indexOf(pref) == 0)count++;
     }
 
     return count
