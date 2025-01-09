@@ -15,35 +15,31 @@ var wordBreak = function(s, wordDict) {
 
 
     function searchWord(i) {
-        // If we have reached the end of the string, return true
+       
         if (i === s.length) return true;
 
-        // If the result for this index is already computed, return it
+       
         if (memo[i] !== undefined) return memo[i];
 
         let current = root;
 
-        // Traverse the string from index i
+        
         for (let j = i; j < s.length; j++) {
+
             let idx = s.charCodeAt(j) - 97;
 
-            // If the character is not in the Trie, return false
-            if (!current.children[idx]) {
-                break;
-            }
+            if (!current.children[idx]) break;
+            
 
             current = current.children[idx];
 
-            // If a word ends here, recursively check the rest of the string
-            if (current.endWords && searchWord(j + 1)) {
-                memo[i] = true; // Cache the result for index i
-                return true;
-            }
+            if (current.endWords && searchWord(j + 1)) return memo[i] = true; 
+            
         }
 
-        // If no segmentation is possible, cache the result as false
-        memo[i] = false;
-        return false;
+       
+        return memo[i] = false;
+    
     }
 
 
