@@ -49,7 +49,7 @@ var wordBreak = function(s, wordDict) {
         return {
             children: new Array(26).fill(null),
             endWords: false,
-            word: ""
+         
         }
     }
 
