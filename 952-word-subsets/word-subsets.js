@@ -11,19 +11,18 @@ var wordSubsets = function(words1, words2) {
     for(const word of words2) {
         const tempFreq = new Array(26).fill(0)
         for(const ch of word) {
-            tempFreq[ch.charCodeAt(0) - 97]++;
-
-        }
-
-        for(let i = 0; i < 26; i++) {
+            let i = ch.charCodeAt(0) - 97
+            tempFreq[i]++;
 
             freq[i] = Math.max(freq[i], tempFreq[i])
+
         }
+
 
         
     }
     const ans = new Array()
-    // console.log(freq);
+
 
     for(const word of words1) {
 
