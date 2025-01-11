@@ -1,9 +1,9 @@
 
 var Trie = function() {
     
-        this.children = new Array(26).fill(null);
-        this.isEnd = false;
-       this. word = "";
+    this.children = new Array(26).fill(null);
+    this.isEnd = false;
+    this. word = "";
     
 };
 
@@ -14,10 +14,11 @@ var Trie = function() {
 Trie.prototype.insert = function(word) {
 
     let crawsal = this;
+    let idx;
     
     for(const ch of word) {
 
-        let idx = ch.charCodeAt(0) - 97;
+        idx = ch.charCodeAt(0) - 97;
         if(crawsal.children[idx] == null) {
             crawsal.children[idx] = new Trie();
 
@@ -36,9 +37,10 @@ Trie.prototype.insert = function(word) {
 Trie.prototype.search = function(word) {
     
     let crawsal = this;
+    let idx;
 
     for(const ch of word)  {
-        let idx = ch.charCodeAt(0) - 97;
+        idx = ch.charCodeAt(0) - 97;
         if(crawsal.children[idx] == null) return false;
 
         crawsal = crawsal.children[idx]
@@ -52,8 +54,9 @@ Trie.prototype.search = function(word) {
  */
 Trie.prototype.startsWith = function(prefix) {
     let crawsal = this;
+    let idx;
     for(const ch of prefix)  {
-        let idx = ch.charCodeAt(0) - 97;
+        idx = ch.charCodeAt(0) - 97;
         if(crawsal.children[idx] == null) return false;
 
         crawsal = crawsal.children[idx]
