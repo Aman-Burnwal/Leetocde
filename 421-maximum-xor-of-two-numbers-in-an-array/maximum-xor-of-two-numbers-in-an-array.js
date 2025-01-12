@@ -3,15 +3,34 @@
  * @return {number}
  */
 var findMaximumXOR = function(nums) {
-    
-    function Trie () {
-        this.left = null;
-        this.right = null;
+
+
+    const root = new Trie();
+
+    for(const num of nums) {
+
+        insert(num);
     }
 
-    Trie.prototype.insert = function (num) {
+    let max = 0;
 
-        let pCrawsal = this;
+    for(const num of nums) {
+
+        max = Math.max(max, maxXor(num));
+    }
+
+    return max;
+    
+    function Trie () {
+        return {
+            left : null,
+            right: null
+        }
+    }
+
+    function insert (num) {
+
+        let pCrawsal = root;
 
         for(let i = 31; i >= 0; i--) {
 
@@ -30,9 +49,9 @@ var findMaximumXOR = function(nums) {
 
     }
 
-    Trie.prototype.maxXor = function (num) {
+     function maxXor (num) {
 
-        let pCrawsal = this;
+        let pCrawsal = root;
         let xor = 0;
 
         for(let i = 31; i >= 0; i--) {
@@ -63,19 +82,5 @@ var findMaximumXOR = function(nums) {
 
     }
 
-    const root = new Trie();
 
-    for(const num of nums) {
-
-        root.insert(num);
-    }
-
-    let max = 0;
-
-    for(const num of nums) {
-
-        max = Math.max(max, root.maxXor(num));
-    }
-
-    return max;
 };
