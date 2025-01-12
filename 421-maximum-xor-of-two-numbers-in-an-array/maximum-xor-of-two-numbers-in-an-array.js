@@ -6,6 +6,7 @@ var findMaximumXOR = function(nums) {
 
 
     const root = new Trie();
+    let bit;
 
     for(const num of nums) {
 
@@ -34,7 +35,7 @@ var findMaximumXOR = function(nums) {
 
         for(let i = 31; i >= 0; i--) {
 
-            let bit = (num >> i) & 1;
+            bit = (num >> i) & 1;
 
             if(bit) {
 
@@ -56,7 +57,7 @@ var findMaximumXOR = function(nums) {
 
         for(let i = 31; i >= 0; i--) {
 
-            let bit = (num >> i) & 1;
+            bit = (num >> i) & 1;
 
             if(bit) {
 
