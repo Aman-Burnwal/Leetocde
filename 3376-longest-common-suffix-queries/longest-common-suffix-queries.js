@@ -7,6 +7,7 @@ var stringIndices = function(wordsContainer, wordsQuery) {
     const root = new Trie();
     let min = Infinity;
     let indx = 0;
+    let ind;
     const ans = new Array();
 
     for(let i = 0; i <  wordsContainer.length; i++) {
@@ -17,7 +18,7 @@ var stringIndices = function(wordsContainer, wordsQuery) {
         }
     }
     for(const word of wordsQuery) {
-        let ind = search(word);
+        ind = search(word);
         if(ind == Infinity)ind = indx;
         ans.push(ind);
     }
@@ -36,9 +37,10 @@ var stringIndices = function(wordsContainer, wordsQuery) {
 
         let indx = Infinity;
         let curr = root;
+        let ind;
         for(let i = word.length - 1; i >= 0; i--) {
 
-            let ind = word[i].charCodeAt(0) - 97;
+            ind = word[i].charCodeAt(0) - 97;
 
             if(curr.children[ind] == null) break;
            curr = curr.children[ind];
@@ -50,30 +52,28 @@ var stringIndices = function(wordsContainer, wordsQuery) {
     function insert(word, idx, length) {
 
         let curr = root;
+        let indx;
 
         for(let i = length - 1; i >= 0; i--) {
 
-            let indx = word[i].charCodeAt(0) - 97;
+            indx = word[i].charCodeAt(0) - 97;
 
-            // console.log(ch)
 
             if(curr.children[indx] == null) curr.children[indx] = new Trie();
+
             curr = curr.children[indx];
 
             if(!curr.length) {
                 curr.length = length;
                 curr.indx = idx;
             }
-            else {
-                if(curr.length > length) {
-                    curr.length = length;
-                    curr.indx = idx;
-                }
-                // curr.length = Math.min(curr.length, length);
-                // curr.indx = Math.min()
+            else if(curr.length > length) {
+                curr.length = length;
+                curr.indx = idx;
             }
+            
+            
 
-            // curr = curr.children[indx];
         }
     }
 };
