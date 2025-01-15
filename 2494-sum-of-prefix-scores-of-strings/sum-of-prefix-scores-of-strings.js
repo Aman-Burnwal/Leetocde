@@ -26,13 +26,13 @@ var sumPrefixScores = function(words) {
     function Search(word) {
         let pCraswal = root;
         let counting = 0;
-        let indx;
+     
 
         for(const char of word) {
 
-            indx = char.charCodeAt(0) - 97;
+            let indx = char.charCodeAt(0) - 97;
 
-            if(!pCraswal.children[indx] ) break;
+            if(pCraswal.children[indx] == null) break;
             pCraswal = pCraswal.children[indx];
             counting += pCraswal.count;
             
@@ -44,11 +44,11 @@ var sumPrefixScores = function(words) {
     function Insert(word) {
 
         let pCrawsal = root;
-        let indx;
+        
 
         for(const char of word) {
-            indx = char.charCodeAt(0) - 97;
-            if(!pCrawsal.children[indx]) pCrawsal.children[indx] = new Trie();
+            let indx = char.charCodeAt(0) - 97;
+            if(pCrawsal.children[indx] == null) pCrawsal.children[indx] = new Trie();
             pCrawsal = pCrawsal.children[indx];
             pCrawsal.count++;
         } 
