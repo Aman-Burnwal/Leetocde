@@ -5,9 +5,12 @@
 var doesValidArrayExist = function(derived) {
 
 
-    return (helper(0) || helper(1))
+    if( helper(0)) return true;
+
+    return helper(1);
 
     function helper(bit) {
+
         let b = bit;
 
         for(let i = 0; i < derived.length - 1; i++) bit ^= derived[i];
