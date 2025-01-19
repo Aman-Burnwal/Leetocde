@@ -19,10 +19,9 @@ var productExceptSelf = function(nums) {
 
     for(let i = 0; i < nums.length; i++) {
 
-        if((nums[i] == 0 && zero > 1) || (nums[i] != 0 && zero) ) nums[i] = 0;
-
+        if(nums[i] == 0 && zero > 1) nums[i] = 0;
         else if(nums[i] == 0 && zero == 1) nums[i] = mul;
-      
+        else if(nums[i] != 0 && zero) nums[i] = 0;
         else nums[i] = mul / nums[i]
         
 
