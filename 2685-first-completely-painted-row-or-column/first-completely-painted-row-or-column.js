@@ -24,13 +24,14 @@ var firstCompleteIndex = function(arr, mat) {
     const freq2 = new Array(mat[0].length).fill(0);
 
 
-
+    let idx , idx1;
 
     for(let i = 0; i < arr.length; i++) {
 
-        const [idx, idx1] = map.get(arr[i]);
+         [idx, idx1] = map.get(arr[i]);
 
         freq[idx]++;
+
         if(freq[idx] == mat[0].length) return i;
         
 
