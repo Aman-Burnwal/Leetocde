@@ -6,7 +6,7 @@ var orangesRotting = function(grid) {
     
 
     const queue = new Array();
-    const visited = Array.from({length: grid.length}, () => new Array(grid[0].length).fill(false))
+    const visited = Array.from({length: grid.length}, () => new Array(grid[0].length))
     let fresh = 0;
     let minute = -1;
 
@@ -24,7 +24,7 @@ var orangesRotting = function(grid) {
             else if(grid[i][j] == 1) fresh++;
         }
     }
-    console.log(fresh)
+    
     if(fresh == 0) return 0;
 
     const directions = [[0, 1], [1, 0], [-1, 0], [0, -1]];
@@ -39,15 +39,8 @@ var orangesRotting = function(grid) {
 
         while(len > k) {
 
-           
+            const [i, j] = queue[k++];
 
-            const dis = queue[k++];
-            
-
-            let i = dis[0];
-            let j = dis[1];
-           
-            
 
             for(const dir of directions) {
 
