@@ -29,31 +29,31 @@ var orangesRotting = function(grid) {
 
     const directions = [[0, 1], [1, 0], [-1, 0], [0, -1]];
 
-    console.log(queue)
+    
 
-   
+    let k = 0;
 
-    while(queue.length) {
+    while(queue.length > k) {
 
         let len = queue.length;
 
-        while(len > 0) {
+        while(len > k) {
 
-            len--;
+           
 
-            const dis = queue.shift();
-            // console.log(dir)
+            const dis = queue[k++];
+            
 
             let i = dis[0];
             let j = dis[1];
-            // console.log("i ", i, "  j ", j)
+           
             
 
             for(const dir of directions) {
 
                 let x = i + dir[0];
                 let y = j + dir[1];
-                // console.log(x, y)
+              
 
                 if(x < 0  || x < 0 || x >= grid.length || y >= grid[0].length) continue;
 
@@ -62,14 +62,13 @@ var orangesRotting = function(grid) {
                     queue.push([x, y]);
                     fresh--;
 
-                    // console.log(x, y, fresh)
                     
                 }
             }
         }
         minute++;
     }
-    // console.log(fresh)
+  
 
     if (fresh > 0) return -1;
 
