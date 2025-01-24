@@ -4,8 +4,6 @@
  */
 var eventualSafeNodes = function(graph) {
 
-
-    
     const ans = new Array();
 
     const visited = new Array(graph.length).fill(false);
@@ -20,13 +18,10 @@ var eventualSafeNodes = function(graph) {
 
     }
 
-    for(let i = 0; i < inR.length; i++) {
-        if(!inR[i])ans.push(i);
-    }
+    for(let i = 0; i < inR.length; i++)  if(!inR[i])ans.push(i);
+    
 
     function DFS(u) {
-
-        if(visited[u] && inR[u]) return false;
 
         visited[u] = true;
         inR[u] = true;
