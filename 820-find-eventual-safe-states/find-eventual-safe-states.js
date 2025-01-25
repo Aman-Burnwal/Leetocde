@@ -3,12 +3,8 @@
  * @return {number[]}
  */
 var eventualSafeNodes = function(graph) {
-    
+
     const ans = new Array();
-
-    const visited = new Array(graph.length).fill(false);
-
-    const inR = new Array(graph.length).fill(false);
 
     const adj = Array.from({length: graph.length}, () => new Array())
 
@@ -36,11 +32,13 @@ var eventualSafeNodes = function(graph) {
     }
 
     let i = 0;
+    const safeNode = new Array(graph.length);
     
     while(i < queue.length) {
 
         let u = queue[i++];
-        ans.push(u);
+        safeNode[u] = true;
+
 
         for(const v of adj[u]) {
 
@@ -50,13 +48,22 @@ var eventualSafeNodes = function(graph) {
         }
     }
 
-    return ans.sort((a, b) => a - b);
+    for(let i = 0; i < graph.length; i++) {
+        if(safeNode[i] ) ans.push(i)
+    }
+
+    return ans
 
     
 
+        
 
 
-    console.log(freq)
+    const visited = new Array(graph.length).fill(false);
+
+    const inR = new Array(graph.length).fill(false);
+
+  
 
 
 
