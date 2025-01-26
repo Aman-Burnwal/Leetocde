@@ -5,30 +5,22 @@
 var shortestPathBinaryMatrix = function(grid) {
 
     const n = grid.length;
-    if(grid[0][0] != 0 || grid[n - 1][n - 1] != 0) return -1
-   
 
+    if(grid[0][0] != 0 || grid[n - 1][n - 1] != 0) return -1
 
     const direction = [[0, 1], [1, 0], [-1, 0], [0, -1], [-1, -1], [1, 1], [1, -1], [-1, 1]];
 
     
-
-    // const visited = Array.from({length: n}, () => new Array(n).fill(false));
     const times = Array.from({length: n}, () => new Array(n).fill(Infinity));
 
 
     const queue = new Array();
     queue.push([0, 0]);
-    // visited[0][0] = true;
-    // level = 2;
+ 
     times[0][0] = 1;
     let k = 0;
 
     while(k < queue.length) {
-
-     
-
-    
 
         const [i , j] = queue[k++];
 
@@ -46,18 +38,13 @@ var shortestPathBinaryMatrix = function(grid) {
             }
                 
         }
-           
-
-        
-  
-
+ 
     }
 
 
-    if(times[n - 1][n -1] == Infinity) return -1;
     
 
-    return times[n - 1][n - 1];
+    return times[n - 1][n -1] == Infinity ? -1 : times[n - 1][n - 1];
 
     
     
