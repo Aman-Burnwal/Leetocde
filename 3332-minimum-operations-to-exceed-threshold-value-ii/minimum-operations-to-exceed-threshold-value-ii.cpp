@@ -15,18 +15,19 @@ public:
 
         while(!pq.empty()) {
             
-            long x = pq.top();
+            long x = pq.top() * 2;
 
             pq.pop();
 
             if(!pq.empty()){
-                x*= 2;
+              
                 x += pq.top();
                 pq.pop();
+                if(x < k) pq.push(x);
             }
-            else x = ( x  + x * 2);
+           
 
-            if(x < k) pq.push(x);
+           
 
             count++;
 
