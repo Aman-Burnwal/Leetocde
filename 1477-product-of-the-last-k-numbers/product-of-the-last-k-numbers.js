@@ -32,14 +32,12 @@ ProductOfNumbers.prototype.add = function(num) {
  */
 ProductOfNumbers.prototype.getProduct = function(k) {
 
-    const arr = this.arrayMultiply;
+    const multiplies = this.arrayMultiply;
 
-    if(arr.length < k) return 0;
+    if(multiplies.length < k) return 0;
 
-    if(k == arr.length) return this.mul;
-
-    
-    return this.mul / this.arrayMultiply[this.arrayMultiply.length - k - 1 ];
+    if(k == multiplies.length) return this.mul;
+    return this.mul / multiplies[multiplies.length - k - 1 ];
 };
 
 /** 
