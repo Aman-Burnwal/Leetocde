@@ -1,8 +1,8 @@
 
 var ProductOfNumbers = function() {
     this.array = new Array();
-    // this.zeroIdx = -1;
-    // this.arrayMultiply = new Array();
+    this.arrayMultiply = new Array();
+    this.mul = 1;
 };
 
 /** 
@@ -12,7 +12,17 @@ var ProductOfNumbers = function() {
 ProductOfNumbers.prototype.add = function(num) {
     
     this.array.push(num);
-    // if(num == 0) this.zeorIdx = this.array.length;
+    if(num == 0) {
+     
+        this.mul = 1;
+        this.arrayMultiply.length = 0;
+    }
+    else {
+        this.mul *= num;
+        this.arrayMultiply.push(this.mul)
+    }
+
+    
     
 };
 
@@ -21,18 +31,15 @@ ProductOfNumbers.prototype.add = function(num) {
  * @return {number}
  */
 ProductOfNumbers.prototype.getProduct = function(k) {
+
+    const arr = this.arrayMultiply;
+
+    if(arr.length < k) return 0;
+
+    if(k == arr.length) return this.mul;
+
     
-    const arr = this.array;
-
-
-
-    let mul = 1;
-    idx = arr.length - 1;
-
-    while(k--) {
-        mul *= arr[idx--]
-    }
-    return mul;
+    return this.mul / this.arrayMultiply[this.arrayMultiply.length - k - 1 ];
 };
 
 /** 
