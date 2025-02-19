@@ -7,6 +7,7 @@ var getHappyString = function(n, k) {
 
     let count = 0;
     let ans = "";
+    let str = "abc";
     let stack = new Array();
     
 
@@ -20,7 +21,7 @@ var getHappyString = function(n, k) {
         }
         if(ans != "") return;
         
-        for(const ch of "abc") {
+        for(const ch of str) {
             stack.push(ch);
             if(stack.length == 1) generater();
             else if(stack[stack.length - 2] != ch) generater();
