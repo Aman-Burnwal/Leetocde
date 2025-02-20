@@ -8,10 +8,9 @@ var findDifferentBinaryString = function(nums) {
   
 
     let stack = new Array;
-    let size = nums.length;
+    let size = nums[0].length;
+    let ans = ""
 
-
-    let ans = "";
     solve();
     return ans;
 
