@@ -13,11 +13,11 @@
  */
 var constructFromPrePost = function(preorder, postorder) {
     
-    const map = new Map();
+    const map = new Array(31)
 
     for(let i = 0; i < postorder.length; i++) {
 
-        map.set(postorder[i], i);
+        map[postorder[i]] = i;
     }
 
 
@@ -33,7 +33,7 @@ var constructFromPrePost = function(preorder, postorder) {
 
         const nextRoot = preorder[preIndex + 1];
 
-        let j = map.get(nextRoot);
+        let j = map[nextRoot]
 
         let num = j - postIndex + 1;
 
