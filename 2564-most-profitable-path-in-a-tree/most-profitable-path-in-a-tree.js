@@ -9,7 +9,8 @@ var mostProfitablePath = function(edges, bob, amount) {
     const adj = new Map();
     const visited = new Set();
     const BobTimes = new Map();
-    let max = -Infinity;
+
+    let max = Number.MIN_SAFE_INTEGER;
 
     for(const [u, v] of edges) {
 
@@ -25,7 +26,7 @@ var mostProfitablePath = function(edges, bob, amount) {
     
     BobDFS(bob, 0);
     AliceDFS(0, 0, 0);
- 
+   
     return max;
 
 
