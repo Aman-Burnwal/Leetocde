@@ -14,7 +14,7 @@ var lenLongestFibSubseq = function(arr) {
         map.set(arr[i], i);
     }
     
-    const memo = Array.from({length : 1001}, () => new Array(1000));
+    const memo = Array.from({length : 1001}, () => new Array());
 
 
     for(let i = 1; i < arr.length; i++) {
