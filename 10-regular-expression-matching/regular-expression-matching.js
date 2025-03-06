@@ -4,28 +4,46 @@
  * @return {boolean}
  */
 var isMatch = function(s, p) {
-    let memo = new Map();
-    
+
+    const map = new Map();
+
+
+    return helper(0, 0)
+
     function helper(i, j) {
-        let key = `${i}-${j}`;
-        if (memo.has(key)) return memo.get(key);
-        
-        if (j === p.length) return i === s.length;
+
+        let key = i + "_" + j;
+        if(map.has(key)) return map.get(key);
+
+        if(j == p.length) return i == s.length;
 
         
-        let firstMatch = (i < s.length) && (s[i] === p[j] || p[j] === '.');
 
-        if (j + 1 < p.length && p[j + 1] === '*') {
+        if(p[j + 1] == "*") {
 
-            let ans = helper(i, j + 2) || (firstMatch && helper(i + 1, j));
-            memo.set(key, ans);
-            return ans;
-        } else {
-            let ans = firstMatch && helper(i + 1, j + 1);
-            memo.set(key, ans);
-            return ans;
+            let a = helper(i , j + 2);
+
+            let b = false;
+
+            if(i < s.length && (s[i] == p[j] || p[j] == ".")) b = helper(i + 1, j);
+
+            map.set(key, a || b);
+
+            return a || b;
         }
-    }
 
-    return helper(0, 0);
+        else {
+
+            let temp = false;
+
+             if(i < s.length &&( s[i] == p[j] || p[j] == ".")) temp = helper(i + 1, j + 1);
+           
+            map.set(key, temp);
+             
+             return temp;
+        }
+
+
+    }
+    
 };
