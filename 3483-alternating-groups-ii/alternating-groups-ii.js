@@ -7,9 +7,10 @@ var numberOfAlternatingGroups = function(colors, k) {
 
 
 
-    let j = 0, ans = 0, count = 1;
+    let j = 0, ans = 0;
+    k--;
 
-    while(j < k - 1) {
+    while(j < k) {
         colors.push(colors[j++]);
     }
     j = 0;
@@ -22,26 +23,12 @@ var numberOfAlternatingGroups = function(colors, k) {
 
         if(colors[i] == colors[i - 1]) j = i;
 
-        if(i - j == (k - 1)) {
+        else if(i - j == k) {
 
             ans++;
             j++;
         }
     }
-
-    // for(let i = 0; i < n; i++) {
-
-    //     for(let j = i + 1; j < n; j++) {
-
-    //         if(colors[j - 1] == colors[j]) break;
-    //         else if(j == i + k - 1) {
-    //             ans++;
-    //             break;
-    //         }
-    //     }
-    // }
-
-   
 
     
     return ans;
