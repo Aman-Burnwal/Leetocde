@@ -19,7 +19,7 @@ var countOfSubstrings = function(word, k) {
         j--;
     }
 
-    console.log(consonents)
+
 
     let i = 0,  con = 0;
     j = 0;
@@ -27,9 +27,10 @@ var countOfSubstrings = function(word, k) {
 
     while(i < word.length) {
 
-        if(set.has(word[i])) {
-            vowelMap.set(word[i], (vowelMap.get(word[i]) || 0) + 1);
-        }
+        const curr = word[i];
+
+        if(set.has(curr)) vowelMap.set(curr, (vowelMap.get(curr) || 0) + 1);
+        
         else {
             con++;
             consonents.pop();
@@ -47,7 +48,7 @@ var countOfSubstrings = function(word, k) {
             
             while(vowelMap.size == 5 && k == con) {
 
-                // console.log((consonents[consonents.length - 1] || i + 1 ) - i)
+                
                 count +=  (consonents[consonents.length - 1] || word.length ) - i;
                 // console.log(i, count, consonents[0])
                 if(!set.has(word[j])) con--;
