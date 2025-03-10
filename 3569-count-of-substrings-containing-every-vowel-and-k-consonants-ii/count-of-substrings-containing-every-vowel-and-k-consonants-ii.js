@@ -12,6 +12,7 @@ var countOfSubstrings = function(word, k) {
 
    
     let j = word.length - 1;
+    consonents.push(word.length);
 
     while(j >= 0) {
 
@@ -41,17 +42,15 @@ var countOfSubstrings = function(word, k) {
         if(vowelMap.size == 5 && con == k) {
 
 
-            // count +=  (consonents[0] || i ) - i;
-
-            // if(set.has(word[j])) 
 
             
             while(vowelMap.size == 5 && k == con) {
 
                 
-                count +=  (consonents[consonents.length - 1] || word.length ) - i;
-                // console.log(i, count, consonents[0])
+                count +=  consonents[consonents.length - 1] - i;
+      
                 if(!set.has(word[j])) con--;
+                
                 else if(vowelMap.get(word[j]) == 1) vowelMap.delete(word[j]);
                 else vowelMap.set(word[j], vowelMap.get(word[j]) - 1);
 
