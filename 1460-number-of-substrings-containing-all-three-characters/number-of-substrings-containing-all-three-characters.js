@@ -4,14 +4,14 @@
  */
 var numberOfSubstrings = function(s) {
 
-    let n = s.length; 
+    const n = s.length; 
 
     const map = [0, 0, 0];
 
     let j = 0;
     let count = 0;
 
-    for(let i = 0; i < s.length; i++) {
+    for(let i = 0; i < n; i++) {
 
         map[s.charCodeAt(i) - 97]++;
 
