@@ -22,7 +22,7 @@ var minZeroArray = function(nums, queries) {
     let start = 0;
     
     let end = queries.length - 1;
-    let ans = 0;
+    let ans = -1;
     const arr = new Array(nums.length + 1).fill(0);
 
     while(start <= end) {
@@ -30,7 +30,7 @@ var minZeroArray = function(nums, queries) {
         let mid = (start + end) >> 1;
 
         if(check(mid))  {
-            ans = mid;
+            ans = mid + 1;
             end = mid - 1 ;
 
         }
@@ -38,7 +38,7 @@ var minZeroArray = function(nums, queries) {
     }
     
 
-    return is ?  ans + 1 : -1 ;
+    return ans;
 
     function check (mid) {
 
@@ -64,7 +64,7 @@ var minZeroArray = function(nums, queries) {
 
             if((nums[i - 1] + arr[i - 1]) >  0) return false;
         }
-        is = true;
+   
         return true;
     }
     
