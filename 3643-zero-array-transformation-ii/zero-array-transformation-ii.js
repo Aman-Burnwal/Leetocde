@@ -23,6 +23,7 @@ var minZeroArray = function(nums, queries) {
     
     let end = queries.length - 1;
     let ans = 0;
+    const arr = new Array(nums.length + 1).fill(0);
 
     while(start <= end) {
 
@@ -41,9 +42,9 @@ var minZeroArray = function(nums, queries) {
 
     function check (mid) {
 
-        console.log(mid);
-
-        const arr = new Array(nums.length + 1).fill(0);
+       
+        arr.fill(0);
+        
 
         for(let i = 0; i <= mid; i++) {
 
@@ -53,7 +54,7 @@ var minZeroArray = function(nums, queries) {
             arr[end + 1] += v;
 
         }
-        let pre = 0;
+        
 
         for(let i = 1; i <= nums.length; i++) {
 
