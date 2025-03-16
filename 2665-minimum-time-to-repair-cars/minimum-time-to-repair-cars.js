@@ -9,23 +9,17 @@ var repairCars = function(ranks, cars) {
 
     let min = 1;
 
-    let ans = max;
-    // console.log(min, max)
-
-    while(min <= max){
+    while(min < max){
 
         let mid = Math.floor((min + max) /2);
 
-        if(check(mid)) {
-            max = mid - 1;
-            ans = mid;
-        }
+        if(check(mid))  max = mid;
+   
         else min = mid + 1;
 
-        // console.log(min, max)
     }
 
-    return ans;
+    return max;
 
     function check(time) {
 
