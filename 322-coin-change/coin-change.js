@@ -7,7 +7,7 @@ var coinChange = function(coins, amount) {
     
 
 
-    const map = new Map();
+    const map = new Array(amount + 2).fill(-1);
 
     let ans = helper( amount);
 
@@ -24,7 +24,7 @@ var coinChange = function(coins, amount) {
         if(sum == 0) return 0;
         if(sum < 0 ) return Infinity;
 
-        if(map.has(sum)) return map.get(sum);
+        if(map[sum] != -1) return map[sum];
 
         
         let max = Infinity;
@@ -36,9 +36,8 @@ var coinChange = function(coins, amount) {
             max = Math.min(max, count)
         } 
 
-        map.set(sum , max);
+        return map[sum] = max;
 
-        return max;
        
     }
 };
