@@ -21,10 +21,7 @@ var longestNiceSubarray = function(nums) {
         bits |= num;
 
 
-
-
-        count = Math.max(count, i - j);
-        i++;
+        count = Math.max(count, i++ - j);
    }
 
 
