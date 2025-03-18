@@ -19,14 +19,17 @@ var change = function(amount, coins) {
         if(sum == amount)  return 1;
     
         if(sum > amount || i >= coins.length) return 0;
+
         if(dp[sum][i] != -1) return dp[sum][i];
 
 
         let a = 0;
-        b = 0;
+       
 
-        if(amount >= (coins[i] + sum )) a =  helper(sum +coins[i] , i );
-        b =  helper(sum, i + 1);
+
+        if( amount >= ( coins[i] + sum ) ) a =  helper( sum + coins[i] , i );
+
+        let b =  helper( sum, i + 1 );
 
         return dp[sum][i] = a + b;
     }
