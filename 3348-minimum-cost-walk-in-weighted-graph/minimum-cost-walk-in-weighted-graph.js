@@ -7,7 +7,6 @@
 var minimumCost = function(n, edges, query) {
 
     const parent = new Array(n );
-    const counting = new Array(n).fill(1);
     const andValue = new Array(n ).fill(-1);
     const ans = new Array();
 
@@ -29,16 +28,10 @@ var minimumCost = function(n, edges, query) {
         let x = findParent(u);
         let y = findParent(v);
 
-        if(counting[x] > counting[y]) {
-
-            parent[x] = y;
-            counting[x]++;
-  
-        }
-        else {
-            parent[y] = x;
-            counting[y]++;
-        }
+        if(parent[x] > parent[y])  parent[x] = y;
+        
+        else parent[y] = x;
+         
 
     }
     
@@ -64,22 +57,16 @@ var minimumCost = function(n, edges, query) {
 
 
     
-    // function findParent(num) {
+    function findParent(num) {
 
-    //     if(parent[num] == num) return num;
+        if(parent[num] == num) return num;
 
-    //     andValue[parent[num]] &= andValue[num]; 
+        andValue[parent[num]] &= andValue[num]; 
 
-    //     return parent[num] = findParent(parent[num]);
-    // }
-
-        function findParent(num) {
-        if (parent[num] !== num) {
-            parent[num] = findParent(parent[num]); // Path compression
-            andValue[parent[num]] &= andValue[num]; // Update andValue for compression
-        }
-        return parent[num];
+        return parent[num] = findParent(parent[num]);
     }
+
+    
 
     
 };
