@@ -60,21 +60,26 @@ var minimumCost = function(n, edges, query) {
 
 
 
-    function findParent(num) {
-
-        if(parent[num] == num) return num;
-
-        andValue[parent[num]] &= andValue[num]; 
-
-        return parent[num] = findParent(parent[num]);
-    }
-
-    
-
-   
-
     return ans;
+
+
     
+    // function findParent(num) {
+
+    //     if(parent[num] == num) return num;
+
+    //     andValue[parent[num]] &= andValue[num]; 
+
+    //     return parent[num] = findParent(parent[num]);
+    // }
+
+        function findParent(num) {
+        if (parent[num] !== num) {
+            parent[num] = findParent(parent[num]); // Path compression
+            andValue[parent[num]] &= andValue[num]; // Update andValue for compression
+        }
+        return parent[num];
+    }
 
     
 };
