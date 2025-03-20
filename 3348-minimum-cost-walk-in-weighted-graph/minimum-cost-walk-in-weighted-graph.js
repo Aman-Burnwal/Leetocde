@@ -6,9 +6,9 @@
  */
 var minimumCost = function(n, edges, query) {
 
-    const parent = new Array(n + 1);
-    const counting = new Array(n + 1).fill(1);
-    const andValue = new Array(n + 1).fill(-1);
+    const parent = new Array(n );
+    const counting = new Array(n).fill(1);
+    const andValue = new Array(n ).fill(-1);
     const ans = new Array();
 
 
@@ -18,10 +18,8 @@ var minimumCost = function(n, edges, query) {
 
     for(const [u, v, w] of edges) {
 
-        if(andValue[u] != -1) andValue[u] &= w;
-        else andValue[u] = w;
-        if(andValue[v] != -1) andValue[v] &= w;
-        else andValue[v] = w;
+        andValue[u] != -1 ? andValue[u] &= w : andValue[u] = w;
+        andValue[v] != -1 ? andValue[v] &= w :  andValue[v] = w;
     }
 
 
@@ -35,12 +33,11 @@ var minimumCost = function(n, edges, query) {
 
             parent[x] = y;
             counting[x]++;
-
-            
+  
         }
         else {
-             parent[y] = x;
-             counting[y]++;
+            parent[y] = x;
+            counting[y]++;
         }
 
     }
@@ -55,11 +52,9 @@ var minimumCost = function(n, edges, query) {
         let x = findParent(u);
         let y = findParent(v);
 
-        // console.log(x, y)
-        if(x != y) ans.push(-1);
-        else {
-            ans.push(andValue[x]);
-        }
+        ans.push( x != y ? -1 : andValue[x]);
+      
+        
     }
 
 
