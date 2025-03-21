@@ -6,42 +6,61 @@
  */
 var findAllRecipes = function(recipes, ingredients, supplies) {
 
-    const supply = new Set(supplies);
-    let shouldRun = true;
+    const supplySet = new Set(supplies);
+    // console.log(supplySet)
+
+
     const ans = new Array();
+    const map = new Map();
+    const counting = new Array(recipes.length).fill(0);
 
-    while(shouldRun) {
 
-        shouldRun = false;
+    for(let i = 0; i < recipes.length; i++) {
 
-        for(let i = 0; i < recipes.length; i++) {
+        for(const ind of ingredients[i]) {
 
-            const recipy = recipes[i];
+            if(!supplySet.has(ind)) {
 
-            if(recipy != -1) {
+                if(map.has(ind)) map.get(ind ).push(i);
+                else map.set(ind, [i])
 
-                let is = true;;
-                for( const ind of ingredients[i]) {
-                    // console.log(recipy, ind)
-                    if(!supply.has(ind)) {
-                        
-                        is = false;
-                        break;
-                    }
-                }
-
-                if(is) {
-                    shouldRun = true;
-                    ans.push(recipy);
-                    recipes[i] = -1;
-                    supply.add(recipy);
-                }
+                counting[i]++;
 
             }
-
         }
     }
+    // console.log(counting)
 
+    const queue = new Array();
+
+    for(let i = 0; i < counting.length; i++) {
+
+        if(counting[i] == 0) queue.push(i);
+    }
+
+    while(queue.length) {
+
+        const ind = queue.shift();
+        ans.push(recipes[ind]);
+        const arr = map.get(recipes[ind])
+        // console.log(arr , ind)
+
+        if(arr) {
+
+            for(const ind of arr) {
+
+                counting[ind]--;
+
+                if(counting[ind] == 0) queue.push(ind);
+            }
+
+
+        }
+
+    }
+
+    // while(ans.length < recipes.length) ans.push(-1)
+    // console.log(map)
     return ans;
     
 };
