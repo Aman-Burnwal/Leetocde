@@ -5,77 +5,77 @@
  */
 var countCompleteComponents = function(n, edges) {
 
-    const adj = new Map();
 
-    const visited = new Array(n).fill(false);
 
+    let count = 0;
+    const parent = new Array();
+    const size  = new Array(n).fill(1);
+    const mp = new Map();
+
+    for(let i = 0; i < n; i++) parent.push(i);
 
     for(const [u, v] of edges) {
 
-        if(!adj.has(u)) adj.set(u, []);
-        if(!adj.has(v)) adj.set(v, []);
-
-        adj.get(u).push(v);
-        adj.get(v).push(u);
+        union(u, v);
     }
 
-    let count = 0;
-    let u = 0;
-    let v = 0;
+    for(const [u, v] of edges) {
+
+       let idx =  find(u);
+
+       mp.set(idx, (mp.get(idx) || 0) + 2);
+    }
 
     for(let i = 0; i < n; i++) {
 
-        
-        if(!visited[i]) {
-           e = 0;
-           v = 0;
-           BFS(i);
-        
-
-           if(v * (v - 1) == e ) count++;
+        if(parent[i] == i) {
+          
+          if(size[i] == 1) {
+            count++;
+            continue;
+          }
+          count +=  ( size[i] * (size[i] - 1)) ==( mp.get(i) ) ? 1 : 0;
+          console.log(i, count)
         }
     }
+
+    console.log(parent);
+    console.log(mp);
+    console.log(size)
 
     return count;
 
-    function DFS(u) {
 
-        visited[u] = true;
+    function find(x) {
 
-        v++;
+        if(parent[x] == x) return x;
 
-        if(adj.has(u)) {
+        return parent[x] = find(parent[x]);
 
-            for(const next of adj.get(u)) {
+    }
 
-                e++;
-                if(!visited[next]) DFS(next);
-            }
+
+    function union(x, y) {
+
+        let x_ = find(x);
+        let y_ = find(y);
+
+
+        if(x_ == y_ ) return;
+
+        if(size[x_] > size[y_]) {
+
+          parent[y_] = x_;
+          size[x_] += size[y_]
+        //   mp.set(x_, (mp.get(x_) || 0) + 1);
+        }
+        else {
+            parent[x_] = y_;
+            size[y_] += size[x_];
+            // mp.set(x_, (mp.get(x_) || 0) + 1);
         }
     }
 
-    function BFS(u) {
 
-        const arr = [u];
-        visited[u] = true;
-
-        while(arr.length) {
-
-            v++;
-
-            const curr = arr.pop();
-            if(!adj.has(curr)) continue;
-            for(const next of adj.get(curr)) {
-
-                e++;
-                if(!visited[next]) {
-                    visited[next] = true;
-                    arr.push(next);
-                }
-                
-            }
-
-        }
-    }
     
 };
