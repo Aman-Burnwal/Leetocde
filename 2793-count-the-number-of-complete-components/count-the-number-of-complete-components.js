@@ -64,8 +64,8 @@ var countCompleteComponents = function(n, edges) {
             v++;
 
             const curr = arr.pop();
-         
-            for(const next of (adj.get(curr) || [])) {
+            if(!adj.has(curr)) continue;
+            for(const next of adj.get(curr)) {
 
                 e++;
                 if(!visited[next]) {
