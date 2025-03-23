@@ -2,13 +2,10 @@ var countCompleteComponents = function(n, edges) {
     let count = 0;
     const parent = new Array(n).fill(0).map((_, i) => i);
     const size = new Array(n).fill(1);
-    const mp = new Map();
+    const edgeCount = new Array(n).fill(0);
 
     function find(x) {
-        if (parent[x] !== x) {
-            parent[x] = find(parent[x]); // Path Compression
-        }
-        return parent[x];
+        return parent[x] === x ? x : (parent[x] = find(parent[x])); // Path Compression
     }
 
     function union(x, y) {
@@ -30,15 +27,12 @@ var countCompleteComponents = function(n, edges) {
     }
 
     for (const [u, v] of edges) {
-        let idx = find(u);
-        mp.set(idx, (mp.get(idx) || 0) + 1);
+        edgeCount[find(u)]++;  // Directly store edge count
     }
 
     for (let i = 0; i < n; i++) {
-        if (find(i) === i) {
-            if (size[i] === 1) {
-                count++;
-            } else if ((size[i] * (size[i] - 1)) / 2 === (mp.get(i) || 0)) {
+        if (find(i) === i) { // Checking root node
+            if (size[i] === 1 || edgeCount[i] === (size[i] * (size[i] - 1)) / 2) {
                 count++;
             }
         }
