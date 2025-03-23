@@ -29,7 +29,8 @@ var countCompleteComponents = function(n, edges) {
         if(!visited[i]) {
            e = 0;
            v = 0;
-           DFS(i);
+           BFS(i);
+        
 
            if(v * (v - 1) == e ) count++;
         }
@@ -50,6 +51,30 @@ var countCompleteComponents = function(n, edges) {
                 e++;
                 if(!visited[next]) DFS(next);
             }
+        }
+    }
+
+    function BFS(u) {
+
+        const arr = [u];
+        visited[u] = true;
+
+        while(arr.length) {
+
+            v++;
+
+            const curr = arr.pop();
+         
+            for(const next of (adj.get(curr) || [])) {
+
+                e++;
+                if(!visited[next]) {
+                    visited[next] = true;
+                    arr.push(next);
+                }
+                
+            }
+
         }
     }
     
