@@ -35,7 +35,7 @@ var countCompleteComponents = function(n, edges) {
             continue;
           }
           count +=  ( size[i] * (size[i] - 1)) ==( mp.get(i) ) ? 1 : 0;
-          console.log(i, count)
+  
         }
     }
 
