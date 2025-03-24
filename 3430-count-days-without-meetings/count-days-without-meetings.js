@@ -4,24 +4,23 @@
  * @return {number}
  */
 var countDays = function(days, meetings) {
-    
+
+    let daysOff = 0;
+    let currEnd = 0;
+
     meetings.sort((a, b) => a[0] - b[0]);
-    let count = 0;
-    let lastEnd = 0;
 
 
-    for(const [start , end] of meetings) {
+    for(const [start, end] of meetings) {
 
-        if(start > lastEnd + 1) {
-            count += start - lastEnd - 1;
+        if(start > currEnd) {
+
+            daysOff += start - currEnd - 1;
         }
 
-        lastEnd = Math.max(lastEnd, end);
+        currEnd = Math.max(end, currEnd);
     }
 
-    count += days - lastEnd;
-
-
-    return count;
-
+    return daysOff + days - currEnd;
+    
 };
