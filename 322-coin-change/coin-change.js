@@ -6,38 +6,22 @@
 var coinChange = function(coins, amount) {
     
 
-
-    const map = new Array(amount + 2).fill(-1);
-
-    let ans = helper( amount);
-
     
 
-    if(ans == Infinity) return -1;
+    const dp = Array.from({length: coins.length + 5} , () => new Array(amount + 2).fill(-1))
+    let ans = helper(0, 0);
+    if(ans == Number.MAX_SAFE_INTEGER ) return -1;
     return ans;
 
-
-    function helper( sum) {
-
-       
-
-        if(sum == 0) return 0;
-        if(sum < 0 ) return Infinity;
-
-        if(map[sum] != -1) return map[sum];
-
+    function helper(i, sum ) {
+        // console.log(i, sum)
         
-        let max = Infinity;
+        if(sum == amount) return 0;
 
-        for(const coin of coins) {
+        if(sum > amount || i >= coins.length) return Number.MAX_SAFE_INTEGER;
+        if(dp[i][sum] != -1) return dp[i][sum];
 
-            let count =  1 + helper(sum - coin );
 
-            max = Math.min(max, count)
-        } 
-
-        return map[sum] = max;
-
-       
+        return dp[i][sum] = Math.min( 1 + helper(i, sum + coins[i]), helper(i + 1, sum));
     }
 };
