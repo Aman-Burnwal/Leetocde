@@ -7,12 +7,12 @@ var maximumTripletValue = function(nums) {
     const maxRight = new Array(nums.length).fill(0);
     let max = nums[nums.length - 1];
 
-    for(let i = nums.length - 1; i >= 0; i--) {
+    // for(let i = nums.length - 1; i >= 0; i--) {
 
-        max = Math.max(nums[i], max);
+    //     max = Math.max(nums[i], max);
 
-        maxRight[i] = max;
-    }
+    //     maxRight[i] = max;
+    // }
     let maxDif = 0;
     max = 0;
     let result = 0;
@@ -21,7 +21,7 @@ var maximumTripletValue = function(nums) {
 
         maxDif = Math.max(maxDif, max - nums[i]);
         max = Math.max(max, nums[i]);
-        result = Math.max(maxRight[i + 1] * maxDif, result);
+        result = Math.max(nums[i + 1] * maxDif, result);
     }
 
 
