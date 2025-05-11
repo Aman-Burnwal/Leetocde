@@ -24,8 +24,7 @@ var minSum = function(nums1, nums2) {
         else zero_in_nums2++;
     }
 
-    console.log(sum_of_nums1, sum_of_nums2);
-    console.log(zero_in_nums1, zero_in_nums2);
+
 
 
     if(sum_of_nums1 == sum_of_nums2 && ((zero_in_nums1 == 0 && zero_in_nums2 ) || (zero_in_nums2 == 0 && zero_in_nums1 ))) return -1;
