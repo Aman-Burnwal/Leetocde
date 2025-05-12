@@ -10,7 +10,7 @@ var findEvenNumbers = function(digits) {
 
     for(let i = 0; i < digits.length; i++) {
 
-        if(digits[i] == 0) continue;
+        if(digits[i] == 0 || (i > 0 && digits[i] == digits[i - 1])) continue;
 
         
 
@@ -18,7 +18,7 @@ var findEvenNumbers = function(digits) {
 
             let num = digits[i] * 100 + digits[j] * 10
 
-            if(j == i) continue;
+            if(j == i ) continue;
 
 
             for(let k = 0; k < digits.length; k++) {
