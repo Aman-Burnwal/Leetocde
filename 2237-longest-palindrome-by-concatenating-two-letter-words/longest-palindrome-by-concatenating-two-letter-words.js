@@ -11,29 +11,47 @@ var longestPalindrome = function(words) {
 
     for(const word of words) {
 
- 
-
-        if (map.has(word.split("").reverse().join(""))) {
-
-            let nWord = word.split("").reverse().join("");
-
-            if(map.get(nWord) == 1) map.delete(nWord);
-            else map.set(nWord, map.get(nWord) -1);
-
-            len += 4;
-        }
-
-        else map.set(word, (map.get(word) || 0) + 1)
+         map.set(word, (map.get(word) || 0) + 1)
     }
 
-    let max = 0;
+    let max = []
     
 
     for(const [word, count] of map) {
 
-        if(word == word.split("").reverse().join("")) max = Math.max(count, max)
-    }
-    max *=2;
+        if(word == word.split("").reverse().join("")) max.push(count);
 
-    return len + max;
+        else if (map.has(word.split("").reverse().join(""))) {
+            len += Math.min(count, map.get(word.split("").reverse().join("")));
+        
+        
+        }
+
+        
+
+        
+    }
+    
+    max.sort((a, b) => a-b);
+
+    
+
+    let take = true;
+    for(let i = max.length - 1; i >= 0; i--) {
+
+        const count = max[i]
+
+        if(count % 2 == 0) len += count;
+
+        else if(take) {
+            len += count;
+            take = !take
+        }
+        else len += (count - 1);
+    }
+    
+    len *=2;
+
+
+    return len
 };
