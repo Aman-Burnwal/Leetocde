@@ -16,7 +16,7 @@ var maxTargetNodes = function(edges1, edges2) {
     const n2 = adj2.size;
 
 
-    const visited = new Array(Math.max(n2, n1)).fill(0);
+    const visited = new Array();
     const ans = new Array()
     let EvenMax = 0, oddMax = 0, countOdd = 0, countEven = 0;
 
@@ -26,27 +26,20 @@ var maxTargetNodes = function(edges1, edges2) {
     let max = Math.max(countOdd, countEven);
     countOdd = 0;
     countEven = 0;
-    Positioning(0, 0);
-    DFSHead(0, 0, adj1);
-
-
-    for(let i = 0; i < n1; i++) {
-
-        // countOdd = 0;
-        
-        ans[i] = !ans[i] ? countEven + max : countOdd + max;
-    }
     
+    DFSHead(0, 0, adj1);
+    Positioning(0, 0);
 
-    //  DFSPosition(curr, u)
 
-        // console.log(oddEven, count)
+
 
         function Positioning(curr , u) {
 
             if(visited[u]) return;
 
-            ans[u] = curr % 2 
+   
+
+            ans[u] = curr % 2 ? countOdd + max : countEven + max;
             
             
 
