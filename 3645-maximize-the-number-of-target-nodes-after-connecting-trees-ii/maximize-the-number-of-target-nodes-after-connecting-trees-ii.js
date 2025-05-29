@@ -5,13 +5,15 @@
  */
 var maxTargetNodes = function(edges1, edges2) {
     
-    const n1  = 1 + edges1.map((curr) =>  {
-                    return curr.reduce((a, b) => Math.max(a, b), 0)
-                }).reduce((acc, curr) => Math.max(acc, curr), 0)
+    let n1  = 0
+    edges1.map(curr => n1 = Math.max(...curr, n1))
     
-    const n2  = 1 + edges2.map((curr) =>  {
-                    return curr.reduce((a, b) => Math.max(a, b), 0)
-                }).reduce((acc, curr) => Math.max(acc, curr), 0)
+    let n2 = 0;
+    edges2.map(curr => n2 = Math.max(...curr, n2));
+    n1++;
+    n2++;
+
+
     
     const adj1 = new Map();
     const adj2 = new Map();
