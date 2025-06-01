@@ -3,42 +3,57 @@
  * @return {number}
  */
 var snakesAndLadders = function(board) {
+    
+
+
     let n = board.length;
-    const queue = [];
-    let steps = 0;
+
+    const queue = new Array();
+
+    let step = 0;
     const visited = new Array(n * n).fill(false);
+    visited[0] = true
 
     queue.push(0);
-    visited[0] = true;
 
-    while (queue.length > 0) {
+    while(queue.length > 0) {
+
         let size = queue.length;
+        
 
-        for (let idx = 0; idx < size; idx++) {
-            let curr = queue.shift();
+        for(let idx = 0; idx < size; idx++) {
 
-            if (curr === (n * n - 1)) return steps;
+            let dice = queue.shift();
+          
 
-            for (let j = 1; j <= 6; j++) {
-                let next = curr + j;
-                if (next >= n * n) break;
+            if(dice === ((n * n)  -1 )) return step;
 
-                let row = (n - 1) - Math.floor(next / n);
-                let col = next % n;
+            for(let j = 1; j <= 6; j++ ) {
 
-                if ((n  % 2 === row % 2))  col = n - 1 - col;
-                
+                let next = dice + j
+
+                if(next >= n * n) break;
+
+                let row = (n - 1) - Math.floor( next / n);
+
+                let col = next  % n;
+
+                if( row % 2 == n % 2  ) col = n - 1 - col;
+       
 
                 let dest = board[row][col] === -1 ? next : board[row][col] - 1;
 
-                if (!visited[dest]) {
-                    queue.push(dest);
-                    visited[dest] = true;
-                }
+
+                if(!visited[dest]) queue.push(dest)
+                visited[dest] = true;
+
+
             }
+
+
         }
 
-        steps++;
+        step++;
     }
 
     return -1;
