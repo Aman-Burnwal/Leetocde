@@ -25,11 +25,9 @@ var answerString = function(word, numFriends) {
 
     for(const idx of arr) {
 
-        let newWord = ""
-
-        for(let i = idx; i < Math.min(word.length , idx + maxLen); i++) {
-            newWord += word[i];
-        }     
+   
+        
+        let newWord = word.substring(idx, Math.min(word.length , idx + maxLen))
 
         if(chars.localeCompare(newWord) == -1) chars = newWord;
 
