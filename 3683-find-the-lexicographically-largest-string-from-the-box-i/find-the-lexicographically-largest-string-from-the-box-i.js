@@ -20,7 +20,7 @@ var answerString = function(word, numFriends) {
         }
     }
 
-    const chars = new Array();
+    let chars = ""
     let maxLen = word.length -  numFriends + 1;
 
     for(const idx of arr) {
@@ -30,17 +30,22 @@ var answerString = function(word, numFriends) {
         for(let i = idx; i < Math.min(word.length , idx + maxLen); i++) {
             temp.push(word[i])
         }
-        if(temp.length) chars.push(temp.join(""));
+        if(temp.length) {
+
+            const newWord = temp.join("");
+
+            if(chars.localeCompare(newWord) == -1) chars = newWord;
+
+        }
     }
     
 
     
 
-    chars.sort((a, b) => a.localeCompare(b))
 
     
 
-    return chars.pop()
+    return chars;
 
 
 };
