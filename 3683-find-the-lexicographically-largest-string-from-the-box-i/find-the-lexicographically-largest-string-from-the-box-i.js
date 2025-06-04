@@ -5,37 +5,36 @@
  */
 var answerString = function(word, numFriends) {
     
-    const arr = [];
-
-    if(numFriends <= 1) return word;
-
-    for(let i = 0; i < word.length; i++) {
-
-        const ch = word[i];
-        if(arr.length == 0) arr.push(i);
-        else if(word[arr[arr.length - 1]] == ch) arr.push(i);
-        else if(word[arr[arr.length - 1]] < ch ) {
-            arr.length  = 0;
-            arr.push(i)
-        }
-    }
-
-    let chars = ""
-    const maxLen = word.length -  numFriends + 1;
-
-    for(const idx of arr) {
 
    
+    const maxLen = word.length -  numFriends + 1;
+
+    if(numFriends <= 1) return word;
+    
+    let chars = word.substring(0, Math.min(word.length , maxLen))
+
+    for(let i = 1; i < word.length; i++) {
+
+        const ch = word[i];
         
-        let newWord = word.substring(idx, Math.min(word.length , idx + maxLen))
+        if(chars.charCodeAt(0) < ch.charCodeAt(0) ) {
 
-        if(chars.localeCompare(newWord) == -1) chars = newWord;
+            chars = word.substring(i, Math.min(word.length , i + maxLen))
+        }
+        
+        else if(chars.charCodeAt(0) === ch.charCodeAt(0)) {
 
+            let newStr = word.substring(i, Math.min(word.length , i + maxLen));
+
+            if(chars.localeCompare(newStr) == -1) chars = newStr;
+        }
         
     }
-    
 
     return chars;
+
+    
+
 
 
 };
