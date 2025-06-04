@@ -14,7 +14,7 @@ var answerString = function(word, numFriends) {
         const ch = word[i];
         if(arr.length == 0) arr.push(i);
         else if(word[arr[arr.length - 1]] == ch) arr.push(i);
-        else if(word[arr[arr.length - 1]].charCodeAt(0) < ch.charCodeAt(0) ) {
+        else if(word[arr[arr.length - 1]] < ch ) {
             arr.length  = 0;
             arr.push(i)
         }
