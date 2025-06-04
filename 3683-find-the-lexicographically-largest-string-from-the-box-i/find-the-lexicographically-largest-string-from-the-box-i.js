@@ -21,28 +21,20 @@ var answerString = function(word, numFriends) {
     }
 
     let chars = ""
-    let maxLen = word.length -  numFriends + 1;
+    const maxLen = word.length -  numFriends + 1;
 
     for(const idx of arr) {
 
-        const temp = new Array();
+        let newWord = ""
 
         for(let i = idx; i < Math.min(word.length , idx + maxLen); i++) {
-            temp.push(word[i])
-        }
-        if(temp.length) {
+            newWord += word[i];
+        }     
 
-            const newWord = temp.join("");
+        if(chars.localeCompare(newWord) == -1) chars = newWord;
 
-            if(chars.localeCompare(newWord) == -1) chars = newWord;
-
-        }
+        
     }
-    
-
-    
-
-
     
 
     return chars;
