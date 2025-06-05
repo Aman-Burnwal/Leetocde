@@ -39,11 +39,16 @@ var smallestEquivalentString = function(s1, s2, baseStr) {
         union(a, b);
     }
 
+    for(let i = 0; i < 26; i++) {
+
+        find(i);
+    }
+
     // Build the result string
     let result = "";
     for (const ch of baseStr) {
-        const rep = find(ch.charCodeAt(0) - 97);
-        result += String.fromCharCode(rep + 97);
+        // const rep = find(ch.charCodeAt(0) - 97);
+        result += String.fromCharCode(parent[ch.charCodeAt(0) - 97] + 97);
     }
 
     return result;
