@@ -13,17 +13,15 @@ var clearStars = function(s) {
 
         if(s[i] == "*"){
 
-            let minIdx = -1;
-
             for(let j= 0; j < 26; j++) {
                 
                 if(greadyInd[j].length > 0) {
-                    minIdx = greadyInd[j].pop();
+                    ans[greadyInd[j].pop()] = "*";
                     break;
                 }
             }
 
-            if(minIdx != -1) ans[minIdx] = "*"
+        
         }      
         else {
          
