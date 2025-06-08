@@ -9,6 +9,7 @@ var lexicalOrder = function(n) {
     const ans = new Array();
 
     function createLexicalOrder(root ) {
+        ans.push(root.value)
         const value = root.value * 10;
         
         
@@ -36,33 +37,8 @@ var lexicalOrder = function(n) {
         }
     }
 
-    for(let i = 1; i < 10; i++) {
-
-        if(root && root.children[i]) {
-            DFS(root.children[i]);
-        }
-    }
 
     return ans;
-
-
-
-    function DFS(root) {
-
-        ans.push(root.value);
-
-        for(let i = 0; i <  10; i++) {
-
-            if(root.children[i]) {
-                DFS(root.children[i])
-            }
-        }
-    }
-
-    
-
-
-
 
 
     function createTrie() {
