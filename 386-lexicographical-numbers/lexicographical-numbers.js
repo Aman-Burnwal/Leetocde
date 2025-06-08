@@ -44,7 +44,7 @@ var lexicalOrder = function(n) {
     function createTrie() {
         return {
             value : 0,
-            children: new Array(10).fill(null)
+            children: new Array(10)
         }
     }
 };
