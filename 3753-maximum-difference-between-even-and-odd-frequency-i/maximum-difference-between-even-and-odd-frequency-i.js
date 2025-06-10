@@ -11,24 +11,19 @@ var maxDifference = function(s) {
     }
 
     let maxOdd = 0;
-    let minOdd = Infinity;
-    let maxEven = 0;
     let minEven = Infinity;
 
     for(let freq of freqArr) {
         if(freq === 0) continue;
         else if(freq % 2 === 0 ) {
-            maxEven = Math.max(freq, maxEven);
             minEven = Math.min(freq, minEven);
         }
-
         else {
-            minOdd = Math.min(freq, minOdd);
             maxOdd = Math.max(freq, maxOdd);
         }
     }
-    console.log(maxEven, minOdd, maxOdd, minEven)
+
     return maxOdd - minEven;
-    return Math.max(maxEven - minOdd, maxOdd - minEven)
+
     
 };
