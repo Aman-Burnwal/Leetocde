@@ -6,11 +6,10 @@
 var minimizeMax = function (nums, p) {
 
     nums.sort((a, b) => a - b);
-    // console.log(nums)
 
-    let maxMin = Math.max(...nums)
+
+    let maxMin = nums.at(-1) - nums[0];
     let start = 0;
-    // let result = maxMin;
 
     while (start < maxMin) {
 
