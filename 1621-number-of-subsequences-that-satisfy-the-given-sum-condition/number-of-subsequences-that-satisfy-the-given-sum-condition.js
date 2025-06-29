@@ -6,6 +6,7 @@
 var numSubseq = function(nums, target) {
     nums.sort((a, b) => a - b);
     const MOD = Math.pow(10, 9) + 7;
+    const BMOD = BigInt(MOD)
     let count =  0;
 
 
@@ -17,8 +18,8 @@ var numSubseq = function(nums, target) {
             
             while(left <= right && nums[left] + nums[right] > target) right--;
 
-           if(left<= right) count = (BigInt(count) + (2n ** BigInt(right - left)) % BigInt(MOD)) %BigInt(MOD);
-           count = parseInt(count)
+           if(left<= right) count = ((count) + parseInt((2n ** BigInt(right - left)) % BMOD)) %(MOD);
+
            
            left++;
         }
