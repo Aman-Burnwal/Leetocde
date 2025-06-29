@@ -9,11 +9,10 @@ var numSubseq = function(nums, target) {
 
     let count =  0;
 
-    const preCompute =  [1];
-
-    for(let i = 1; i < nums.length; i++) {
-        preCompute[i] = ( preCompute[i - 1] << 1) % MOD;
-    }
+    const preCompute =  nums.reduce((acc, _ , i) => {
+        acc.push((acc[i] << 1) %MOD)
+        return acc;
+    } , [1])
 
 
         let left = 0;
@@ -24,10 +23,10 @@ var numSubseq = function(nums, target) {
             
             while(left <= right && nums[left] + nums[right] > target) right--;
 
-           if(left<= right) count = (count + (preCompute[right - left])) % MOD;
+            if(left<= right) count = (count + (preCompute[right - left])) % MOD;
 
            
-           left++;
+            left++;
         }
        
 
