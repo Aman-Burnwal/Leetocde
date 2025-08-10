@@ -4,14 +4,13 @@
  */
 var reorderedPowerOf2 = function(n) {
     let t =( n & (n -1)) === 0;
-     console.log(t)
-    const str = String(n).split('').sort((a, b) => a - b);
-    permutation(str, [], []);
+    const str = String(n).split('')
+    permutation(str, []);
     return t;
 
 
 
-    function permutation(nums, per_arr, temp) {
+    function permutation(nums, temp) {
         if(t)return;
         if(temp.length && temp[0] == 0) return;
 
@@ -28,7 +27,7 @@ var reorderedPowerOf2 = function(n) {
             newTemp.push(nums[i]);
 
             let newNum = nums.slice(0, i).concat(nums.slice(i + 1))
-            permutation(newNum, per_arr, newTemp);
+            permutation(newNum, newTemp);
         }
     }
 };
