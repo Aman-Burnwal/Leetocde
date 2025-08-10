@@ -4,7 +4,7 @@
  */
 var reorderedPowerOf2 = function(n) {
     let t =( n & (n -1)) === 0;
-    const str = String(n).split('')
+    const str = String(n).split('').sort((a, b) => a - b);
     permutation(str, []);
     return t;
 
