@@ -3,26 +3,22 @@
  * @return {boolean}
  */
 var checkPowersOfThree = function(n) {
-
-    const powers = new Array();
-
-    for(let i = 0; i <= 14; i++) {
-        powers.push(Math.pow(3, i));
+    const powers = [];
+    let val = 0;
+    let i = 0;
+    while(val < n) {
+        val = Math.pow(3, i++);
+        powers.push(val);
     }
-
-
-
-    while(powers.length) {
-
-        let d = powers.pop();
-
-        if(d <= n) n -= d;
-        
-
-    }
-
-    console.log(n)
-
-    return n == 0;
     
+    function helper(sum, i) {
+        if(sum === n) return true;
+        if(sum > n) return false;
+        if(i > powers.length) return false;
+
+        return helper(sum + powers[i], i + 1) || helper(sum, i + 1)
+    }
+
+    return helper(0, 0)
+
 };
