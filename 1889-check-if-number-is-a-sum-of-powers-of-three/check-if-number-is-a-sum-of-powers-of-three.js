@@ -10,19 +10,14 @@ var checkPowersOfThree = function(n) {
         val = Math.pow(3, i++);
         powers.push(val);
     }
-    let called = false;
     
-    function helper(sum, i) {
-        if(sum === n || called)  {
-            called = true;
-            return true
-        }
-        if(sum > n) return false;
-        if(i > powers.length) return false;
-
-        return helper(sum + powers[i], i + 1) || helper(sum, i + 1)
+    while(powers.length) {
+        let d = powers.pop();
+        if(d <= n) n -= d;
     }
 
-    return helper(0, 0)
+
+
+    return n == 0;
 
 };
