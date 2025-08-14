@@ -1,15 +1,12 @@
-/**
- * @param {string} num
- * @return {string}
- */
 var largestGoodInteger = function(num) {
-    let ans = "";
+    let maxDigit = -1;
 
-    for(let i = 1; i < num.length -1; i++) {
-        if(num[i] === num[i - 1] && num[i] === num[i + 1]) {
-            ans = Math.max(num[i], ans);
+    for (let i = 1; i < num.length - 1; i++) {
+        if (num[i] === num[i - 1] && num[i] === num[i + 1]) {
+            maxDigit = Math.max(maxDigit, Number(num[i]));
         }
     }
-    ans = String(ans);
-    return ans === '' ? "" : ans.padEnd(3,ans[0])
+
+    if (maxDigit === -1) return "";
+    return String(maxDigit).repeat(3);
 };
