@@ -6,10 +6,9 @@ var zeroFilledSubarray = function(nums) {
     let count = 0;
     let curr = 0;
 
-    for(let i = 0; i < nums.length; i++) {
-        if(nums[i] != 0) curr = 0;
-        else curr++;
+    nums.forEach((num) => {
+        num !==  0 ? curr = 0: curr++;
         count += curr;
-    }
+    });
     return count;
 };
