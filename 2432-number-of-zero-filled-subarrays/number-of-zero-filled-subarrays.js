@@ -7,7 +7,7 @@ var zeroFilledSubarray = function(nums) {
     let curr = 0;
 
     nums.forEach((num) => {
-        num !==  0 ? curr = 0: curr++;
+        num ===  0 ? curr++: curr = 0;
         count += curr;
     });
     return count;
