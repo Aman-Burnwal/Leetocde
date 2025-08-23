@@ -1,7 +1,7 @@
 # Write your MySQL query statement belowSELEC
 SELECT 
     CASE 
-        WHEN id = (SELECT MAX(id) FROM Seat ) AND id % 2 = 1
+        WHEN id % 2 = 1 AND id = (SELECT MAX(id) FROM Seat ) 
             THEN id
         WHEN id % 2 = 1
             THEN id + 1
