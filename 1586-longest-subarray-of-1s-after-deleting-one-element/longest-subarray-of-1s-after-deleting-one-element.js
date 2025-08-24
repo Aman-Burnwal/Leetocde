@@ -3,8 +3,7 @@
  * @return {number}
  */
 var longestSubarray = function(nums) {
-    let all = nums.every(num => num === 1);
-    if(all) return nums.length - 1;
+
 
     let left = 0;
     let zero = 0;
@@ -19,6 +18,6 @@ var longestSubarray = function(nums) {
         }
         maxLen = Math.max(maxLen, i - left)
     }
-    return maxLen;
+    return Math.min(maxLen, nums.length - 1);
     
 };
