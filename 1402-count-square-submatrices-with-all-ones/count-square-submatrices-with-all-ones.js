@@ -3,51 +3,35 @@
  * @return {number}
  */
 var countSquares = function(matrix) {
-    const rowLen = matrix.length;
-    const colLen = matrix[0].length;
-    // let reuslt = 0;
-    // const memo = Array.from({length: rowLen}, () => new Array(colLen).fill(-1))
-    // for(let row = 0; row < rowLen; row++) {
-    //     for(let col = 0; col < colLen; col++) {
-    //         if(matrix[row][col] === 1) {
-    //             reuslt += helper(row, col);
-    //         }
-    //     }
-    // }
-
     let count = 0;
+    const dp = {};
+    for(let i = 0; i < matrix.length - 1; i++) {
+        for(let j = 0; j < matrix[0].length - 1; j++) {
+            if(matrix[i][j] === 1) count += helper(i, j)
 
-    for(let i = rowLen - 2; i >= 0; i--) {
-        for(let j = colLen - 2; j >= 0; j--) {
-            if(matrix[i][j] === 1) {
-                let right = matrix[i][j + 1]
-                let digonal = matrix[i + 1][j + 1]
-                let down = matrix[i + 1][j]
-                matrix[i][j] += Math.min(right, digonal, down)
-                count += matrix[i][j];
-                
-            }
         }
     }
-    for(let i = 0; i < rowLen; i++) {
-        count += matrix[i][colLen - 1];
+    console.log(count)
+
+    for(let i = 0; i < matrix.length; i++) {
+        count += matrix[i][matrix[0].length - 1];
     }
-    for(let i = 0; i < colLen - 1; i++) {
-        count += matrix[rowLen - 1][i];
+    for(let j = 0; j < matrix[0].length - 1; j++) {
+        count += matrix[matrix.length -1][j]
     }
     return count;
 
-    return reuslt;
-
-    function helper(i, j) {
-        if(i >= rowLen || j >= colLen) return 0;
+    function helper(i , j) {
+        const key = i + "_"  + j;
+        if(dp.hasOwnProperty(key)) return dp[key]
+        if(i >= matrix.length) return 0;
+        if(j >= matrix[0].length) return 0;
         if(matrix[i][j] === 0) return 0;
-        if(memo[i][j] != -1) return memo[i][j]
 
         let right = helper(i, j + 1);
-        let diognal = helper(i + 1, j + 1);
-        let bottom = helper(i + 1, j);
+        let diagonal = helper(i + 1, j + 1);
+        let down = helper(i + 1, j);
 
-        return memo[i][j] = 1 + Math.min(right, diognal, bottom);
+        return dp[key] = 1 + Math.min(right, down, diagonal);
     }
 };
