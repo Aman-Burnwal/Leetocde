@@ -11,38 +11,45 @@
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-    let l3 = new ListNode(0 , undefined);
-    const ans = l3;
-    let rem = 0
+    let root = new ListNode(0);
+    const curr = root;
+    let rem = 0;
 
+    while(l1 && l2) {
+        const sum = l1.val + l2.val + rem;
+        rem = sum > 9 ? 1 : 0;
+        const newNode = new ListNode(sum % 10);
+        l1 = l1.next;
+        l2 = l2.next;
+        root.next = newNode;
+        root = root.next;
+    }
 
-    while(l1 || l2) {
-        let val = 0;
-        if(l1) {
-            val += l1.val;
-            l1 = l1.next;
-        }
-        if(l2) {
-            val += l2.val;
-            l2 = l2.next;
-        }
-        val += rem;
-        rem = val > 9 ? 1 : 0;
-        val %= 10;
-       
-        const newNode = new ListNode(val , undefined);
-        l3.next = newNode;
-        l3 = l3.next;
-        
+    while(l1) {
+        const sum = l1.val + rem;
+        rem = sum > 9 ? 1 : 0;
+        const newNode = new ListNode(sum % 10);
+        root.next = newNode;
+        root = root.next;
+        l1 = l1.next;
+    }
+
+    while(l2) {
+        const sum = l2.val + rem;
+        rem = sum > 9 ? 1 : 0;
+        const newNode = new ListNode(sum % 10);
+        root.next = newNode;
+        root = root.next;
+        l2 = l2.next;
     }
 
 
     if(rem) {
-        const newNode = new ListNode(rem, undefined);
-        l3.next = newNode;
+        const newNode = new ListNode(rem);
+        root.next = newNode;
+
     }
-    return ans.next;
 
 
-
+    return curr.next;
 };
