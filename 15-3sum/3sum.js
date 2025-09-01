@@ -6,20 +6,29 @@ var threeSum = function(nums) {
     
     const ans = [];
     nums.sort((a, b) => a - b)
-    const map = new Set();
-    const set = new Set();
-    for(let i = 0; i < nums.length; i++) {
-        for(let j = i + 1; j < nums.length; j++) {
-            const req =  (nums[i] + nums[j]) * -1;
-            if(map.has(req)) {
-                const idx = nums[i] + "-" + nums[j] + "-" + req;
-                if(!set.has(idx)) {
-                    set.add(idx);
-                    ans.push([nums[i], nums[j], req]);
-                }
+
+    for(let i = 0; i < nums.length - 1; i++) {
+       if(nums[i] > 0) break;
+       if (i > 0 && nums[i] === nums[i - 1]) continue;
+
+       let left = i + 1;
+       let right = nums.length - 1;
+       const req = -nums[i]
+
+        while(left < right) {
+            if( left > (i + 1) && nums[left] === nums[left - 1]) { left++; continue; }
+            if(nums[right] === nums[right + 1]) { right--; continue; }
+
+            const sum = nums[left] + nums[right] + nums[i];
+            if(sum === 0) {
+                ans.push([nums[i], nums[left], nums[right]]) ;
+                left++;
+                right--;
             }
+            else if(sum > 0) right--;
+            else left++;
+          
         }
-        map.add(nums[i]);
     }
 
     return ans;
