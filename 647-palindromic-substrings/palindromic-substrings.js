@@ -2,30 +2,22 @@
  * @param {string} s
  * @return {number}
  */
-var countSubstrings = function(str) {
-
-    let len = str.length;
-
-    function palindrome( l, r) {
-
-        let count = 0;
-
-        while(l >= 0 && r < len && str[l] == str[r]) {
-            count++;
-            l--;
-            r++;
-        }
-        return count;
+var countSubstrings = function(s) {
+    let count = 0;
+    for(let idx = 0; idx < s.length; idx++) {
+        checkPalindrome(idx, idx);
+        checkPalindrome(idx, idx + 1);
+       
     }
-    let countAns = 0;
+    return count;
 
+    function checkPalindrome(left, right) {
 
-    for(let i = 0; i < str.length; i++) {
-
-        countAns += palindrome( i, i);
-        countAns += palindrome( i, i + 1);
-    } 
-
-    return countAns;
-    
+        while(s[left] === s[right] && left >= 0 && right < s.length) {
+            left--;
+            right++;
+            count++;
+        }
+       
+    }
 };
