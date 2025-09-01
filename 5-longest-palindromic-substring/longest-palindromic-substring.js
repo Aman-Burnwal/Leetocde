@@ -3,29 +3,27 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    let max = 1;
-    let ans = s[0]
-
-    for(let i = 0; i < s.length; i++) {
-        let len1 = check(i, i + 1);
-        let len2 = check(i, i);
-       if(ans.length < len1.length) ans = len1;
-       if(ans.length < len2.length) ans = len2;
+    let longestPalindromicString = "";
+    for(let idx = 0; idx < s.length; idx++) {
+        const same = checkPalindrome(idx, idx);
+        const next = checkPalindrome(idx, idx + 1);
+        if(longestPalindromicString.length < same.length) longestPalindromicString = same;
+        if(longestPalindromicString.length < next.length) longestPalindromicString = next;
     }
+    return longestPalindromicString;
 
-    return ans;
 
-    function check(i, j) {
-        if(s[i] != s[j]) return ""
-        let left = i;
-        let right = j;
-        while(i >= 0 && j < s.length ) {
-           if(s[i] != s[j]) break;
-           left = i; 
-           right = j;
-           i--;
-           j++;
+    function checkPalindrome(left, right) {
+        let i = left, j = left;
+        while(s[left] === s[right] && left >= 0 && right < s.length) {
+            i = left;
+            j = right;
+            left--;
+            right++;
         }
-        return s.substr(left, right - left + 1);
+        return s.substring(i, j+ 1);
     }
+
+
+
 };
