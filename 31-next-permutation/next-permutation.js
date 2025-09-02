@@ -5,6 +5,7 @@
 var nextPermutation = function(nums) {
 
     for(let right = nums.length - 2; right >= 0; right--) {
+        if(nums[right] > nums[right + 1] ) continue;
         for(let rightMost = nums.length - 1; rightMost > right; rightMost--) {
             if(nums[rightMost] > nums[right]) {
                 [nums[rightMost], nums[right]] = [nums[right], nums[rightMost]];
