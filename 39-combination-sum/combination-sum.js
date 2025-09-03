@@ -5,21 +5,21 @@
  */
 var combinationSum = function(candidates, target) {
     const result = [];
-    candidates.sort((a, b) => a - b);
-    function helper(curr,temp, start ) {
-        if(curr === target) {
+
+    helper(0, [], target);
+    return result;
+
+    function helper(idx, temp , target) {
+        if(target=== 0) {
             result.push([...temp]);
             return;
         }
+        if(target < 0 || idx >= candidates.length) return;
 
-        for(let i = start; i < candidates.length; i++) {
-            if(curr + candidates[i] > target) break;
+        for(let i  = idx; i < candidates.length; i++) {
             temp.push(candidates[i]);
-            helper(curr + candidates[i], temp , i);
-            temp.pop();
+            helper(i, temp, target - candidates[i])
+            temp.pop()
         }
     }
-
-    helper(0, [], 0)
-    return result;
 };
