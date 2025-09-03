@@ -4,24 +4,27 @@
  * @return {number}
  */
 var coinChange = function(coins, amount) {
+    if(amount === 0) return 0;
+  
+    const dp = new Array(amount + 1).fill(-1)
+    let max =  helper(amount);
+
+
+    function helper(curr) {
     
+        if(curr === 0) {
+            return 0;
+        }
+        if(curr < 0) return 1e5;
+        if(dp[curr] != -1) return dp[curr];
+        let min = 1e5;
 
-    
-
-    const dp = Array.from({length: coins.length + 5} , () => new Array(amount + 2).fill(-1))
-    let ans = helper(0, 0);
-    if(ans == Number.MAX_SAFE_INTEGER ) return -1;
-    return ans;
-
-    function helper(i, sum ) {
-        // console.log(i, sum)
-        
-        if(sum == amount) return 0;
-
-        if(sum > amount || i >= coins.length) return Number.MAX_SAFE_INTEGER;
-        if(dp[i][sum] != -1) return dp[i][sum];
-
-
-        return dp[i][sum] = Math.min( 1 + helper(i, sum + coins[i]), helper(i + 1, sum));
+        for(let i = 0; i < coins.length; i++) {
+            const take = helper(curr - coins[i]);
+           min = Math.min(take + 1, min);
+        }
+        return dp[curr] = min;
     }
+
+    return max === 1e5 ? -1 : max;
 };
