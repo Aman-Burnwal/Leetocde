@@ -8,24 +8,29 @@ var solveNQueens = function(n) {
     const ans = []
 
 
-    function backtrack(row, col, count) {
+    function backtrack(row, count) {
         if(row >= n) {
-            const board = queen.map((row) => row.join(""));
-            if(count ===  n) ans.push(board)
+           
+            let temp = [];
+
+            for(const rows of queen) {
+                temp.push(rows.join(""))
+            }
+            ans.push([...temp])
+            return;
         }
-        // console.log(row)
-        for(let i = row; i < n; i++) {
-            for(let j = col; j < n; j++) {
-                // console.log(queen[i][j], isSafe(i, j))
-                if( queen[i][j] === "." && isSafe(i , j)) {
-                    queen[i][j] = "Q";
-                    backtrack(i + 1, 0, count + 1);
-                    queen[i][j] = "."
-                }
+
+
+        for(let j = 0; j < n; j++) {
+            if(isSafe(row , j)) {
+                queen[row][j] = "Q";
+                backtrack(row + 1, count + 1);
+                queen[row][j] = "."
             }
         }
+
     }
-    backtrack(0, 0, 0)
+    backtrack(0, 0)
     return ans;
 
 
