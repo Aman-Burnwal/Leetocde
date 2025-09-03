@@ -10,19 +10,17 @@ var maxProduct = function(nums) {
     for(const num of nums) {
         curr *= num;
 
-        max = Math.max(curr, max, num);
+        max = Math.max(curr, max);
         if(curr === 0) curr = 1;
     }
 
     curr = 1;
 
     for(let i = nums.length -1; i >= 0; i--) {
-        const num = nums[i];
-        curr *= num;
-        // if(num > curr) {
-        //     curr = num;
-        // }
-        max = Math.max(curr, max, num);
+
+        curr *= nums[i];
+
+        max = Math.max(curr, max);
         if(curr === 0) curr = 1;
     }
 
