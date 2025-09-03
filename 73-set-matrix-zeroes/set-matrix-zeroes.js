@@ -3,29 +3,59 @@
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var setZeroes = function(matrix) {
-    const rows = new Set()
-    const cols = new Set()
+    let firstRowHasZero = false;
+    let firstColHasZero = false;
 
     for(let row = 0; row < matrix.length; row++) {
-        for(let col = 0; col < matrix[0].length; col++) {
+        if(matrix[row][0] === 0) {
+            firstColHasZero = true;
+            break;
+        }
+    }
+
+    for(let col = 0; col < matrix[0].length; col++) {
+        if(matrix[0][col] === 0) {
+            firstRowHasZero = true;
+            break;
+        }
+    }
+
+    for(let row = 1; row < matrix.length; row++) {
+        for(let col = 1; col < matrix[0].length; col++) {
             if(matrix[row][col] === 0) {
-                rows.add(row);
-                cols.add(col)
+                matrix[row][0] = 0;
+                matrix[0][col] = 0;
             }
         }
     }
-    
-    for(const row of rows) {
-        for(let col = 0; col < matrix[0].length; col++) {
-            matrix[row][col] = 0;
+
+    for(let row = 1; row < matrix.length; row++) {
+        for(let col = 1; col < matrix[0].length; col++) {
+            if(matrix[row][0] === 0 || matrix[0][col] === 0) {
+                matrix[row][col] = 0;
+            }
         }
     }
 
-    for(const col of cols) {
+    if(firstColHasZero) {
+
         for(let row = 0; row < matrix.length; row++) {
-            matrix[row][col] = 0;
+            matrix[row][0] = 0
+        
         }
     }
+    
+
+
+    if(firstRowHasZero) {
+
+        for(let col = 0; col < matrix[0].length; col++) {
+            matrix[0][col] = 0
+        
+        }
+    }
+    
+    
 
 
 
