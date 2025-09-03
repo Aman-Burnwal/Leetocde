@@ -3,44 +3,30 @@
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var setZeroes = function(matrix) {
+    const rows = new Set()
+    const cols = new Set()
 
-    const row = new Array(matrix.length).fill(false);
-    const col = new Array(matrix[0].length).fill(false);
-
-    for(let i = 0; i < matrix.length; i++) {
-
-        for(let j = 0; j < matrix[0].length; j++) {
-            
-            if(matrix[i][j] == 0)  {
-                row[i] = true;
-                col[j] = true;
+    for(let row = 0; row < matrix.length; row++) {
+        for(let col = 0; col < matrix[0].length; col++) {
+            if(matrix[row][col] === 0) {
+                rows.add(row);
+                cols.add(col)
             }
         }
     }
-
-    // row fill karo
-
-    for(let i = 0; i < matrix.length; i++) {
-
-        if(row[i]) {
-            
-            for(let j = 0;j < matrix[0].length; j++) {
-                matrix[i][j] = 0;
-            }
-        }
-    }
-
-    for(let j = 0;  j < matrix[0].length; j++) {
-
-        if(col[j]) {
-            for(let i = 0; i < matrix.length; i++) {
-                matrix[i][j] = 0;
-            }
-        }
-    }
-
-
-
-    return matrix;
     
+    for(const row of rows) {
+        for(let col = 0; col < matrix[0].length; col++) {
+            matrix[row][col] = 0;
+        }
+    }
+
+    for(const col of cols) {
+        for(let row = 0; row < matrix.length; row++) {
+            matrix[row][col] = 0;
+        }
+    }
+
+
+
 };
