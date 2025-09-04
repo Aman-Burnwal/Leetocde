@@ -3,68 +3,39 @@
  * @return {number}
  */
 var orangesRotting = function(grid) {
-    
-
-    const queue = new Array();
-    const visited = Array.from({length: grid.length}, () => new Array(grid[0].length))
     let fresh = 0;
-    let minute = -1;
+    const rottenPos = new Array();
+    let minute = 0;
 
-
-    for(let i = 0; i < grid.length;i++) {
-
-        for(let j = 0; j < grid[i].length; j++) {
-
-            if(grid[i][j] == 2) {
-                queue.push([i, j]);
-                visited[i][j] = true;
-
-            }
-
-            else if(grid[i][j] == 1) fresh++;
+    for(let row = 0; row < grid.length; row++)  {
+        for(let col = 0; col < grid[0].length; col++) {
+            if(grid[row][col] === 2) rottenPos.push([row, col]);
+            else if(grid[row][col] === 1) fresh++;
         }
     }
-    
-    if(fresh == 0) return 0;
 
-    const directions = [[0, 1], [1, 0], [-1, 0], [0, -1]];
+    const dir = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
-    
+    while(rottenPos.length) {
+        let len = rottenPos.length;
 
-    let k = 0;
+        let isRotten = false;
+        for(let i = 0; i < len; i++) {
+            const [row, col] = rottenPos.shift();
+            dir.forEach(([x, y]) => {
+                const nr = row + x;
+                const nc = col + y;
 
-    while(queue.length > k) {
-
-        let len = queue.length;
-
-        while(len > k) {
-
-            const [i, j] = queue[k++];
-
-
-            for(const dir of directions) {
-
-                let x = i + dir[0];
-                let y = j + dir[1];
-              
-
-                if(x < 0  || x < 0 || x >= grid.length || y >= grid[0].length) continue;
-
-                if(grid[x][y] == 1 && !visited[x][y]) {
-                    visited[x][y] = true;
-                    queue.push([x, y]);
+                if(nr >= 0 && nr < grid.length && nc >= 0 && nc < grid[0].length && grid[nr][nc] === 1) {
+                    grid[nr][nc] = -1;
+                    rottenPos.push([nr, nc])
                     fresh--;
+                    isRotten = true;
 
-                    
                 }
-            }
+            })
         }
-        minute++;
+        if(isRotten) minute++;
     }
-  
-
-    if (fresh > 0) return -1;
-
-    return minute;
-
+    return  fresh === 0 ? minute: -1;
 };
