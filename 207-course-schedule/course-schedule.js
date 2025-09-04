@@ -3,86 +3,39 @@
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
-var canFinish = function(n, prerequisites) {
-
-
+var canFinish = function(numCourses, prerequisites) {
     const map = new Map();
-    
+    const inDegree = new Array(numCourses).fill(0);
 
-
-    for(const [u, v] of prerequisites) {
-
-        if(!map.has(v))map.set(v, []);
-        map.get(v).push(u);
-        // indegree[u]++;
+    for(const [preReq, course] of prerequisites) {
+        if(!map.has(preReq)) map.set(preReq, []);
+        map.get(preReq).push(course);
+        inDegree[course]++;
+    }
+    for(const [course, preReq] of prerequisites) {
+        if(!map.has(course)) map.set(course, []);
+        map.get(course).push(preReq);
+        inDegree[preReq]++;
     }
 
 
-    const visited = new Array(n).fill(false);
-    console.log(map)
+    const queue = [];
 
-    for(let i = 0; i < n; i++) {
-        const inRecursion = new Array(n).fill(false);
-        
-        // console.log(i,visited[i],  got)
-        if(!visited[i] ) {
+    for(let i = 0; i < inDegree.length; i++) {
+        if(inDegree[i] === 0) queue.push(i)
+    }
 
-            let got = DFS(i, inRecursion)
-            console.log(got)
-            if(got) return false;
+    let count = 0;
+    while(queue.length) {
+        count++;
+        const course = queue.shift();
+        const req = map.get(course) || [];
+        for(const r of req) {
+            inDegree[r]--;
+            if(inDegree[r] === 0) queue.push(r)
         }
     }
-    return true;
-    function DFS(u, inRecursion) {
-
-        if(inRecursion[u]) return false;
-
-        visited[u] = true;
-        inRecursion[u] = true;
-
-        if(map.has(u)) {
-
-            for(const v of map.get(u)) {
-
-                if(!visited[v] && DFS(v , inRecursion)) return true;
-                else if(inRecursion[v]) return true;
-            }
-        }
-        inRecursion[u] = false;
-
-        return false;
-    }
-
-    
-
-    // const indegree = new Array(n).fill(0);
-    // const que = new Array();
+    return count === numCourses;
 
 
-    // for(let i = 0; i < n; i++) {
-    //     if(indegree[i] == 0) que.push(i)
-    // }
-
-
-    // while(que.length) {
-
-    //     const u = que.pop();
-
-    //     if(!map.has(u)) continue;
-
-    //     for(const v of map.get(u)) {
-
-    //         indegree[v]--;
-
-    //         if(indegree[v] == 0) que.push(v); 
-    //     }
-    // }
-
-    // for(let i = 0; i < n; i++) {
-    //     if(indegree[i] != 0) return false;
-    // }
-
-    // return true;
-    
-    
 };
