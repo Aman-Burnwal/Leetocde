@@ -7,11 +7,6 @@ var canFinish = function(numCourses, prerequisites) {
     const map = new Map();
     const inDegree = new Array(numCourses).fill(0);
 
-    for(const [preReq, course] of prerequisites) {
-        if(!map.has(preReq)) map.set(preReq, []);
-        map.get(preReq).push(course);
-        inDegree[course]++;
-    }
     for(const [course, preReq] of prerequisites) {
         if(!map.has(course)) map.set(course, []);
         map.get(course).push(preReq);
