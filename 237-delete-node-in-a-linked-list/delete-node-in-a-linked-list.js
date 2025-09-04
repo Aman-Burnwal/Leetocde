@@ -11,8 +11,8 @@
  */
 var deleteNode = function(node) {
     node.val = node.next.val;
-    const temp = node.next.next;
-    node.next = null;
-    node.next = temp;
+    node.next = node.next.next;
+  
+    
 
 };
