@@ -13,7 +13,6 @@ var canFinish = function(numCourses, prerequisites) {
         inOrder[preReq]++;
     }
 
-    let count = 0;
     const queue = []
     for(let i = 0; i < numCourses; i++) {
         if(inOrder[i] === 0) queue.push(i);
@@ -21,7 +20,6 @@ var canFinish = function(numCourses, prerequisites) {
 
     while(queue.length) {
         const course = queue.shift();
-        count++;
         const d = map.get(course) || []
         for(const preReq of d) {
             inOrder[preReq]--;
@@ -29,5 +27,5 @@ var canFinish = function(numCourses, prerequisites) {
         }
     }
 
-    return count === numCourses;
+    return inOrder.every((d) => d === 0);
 };
