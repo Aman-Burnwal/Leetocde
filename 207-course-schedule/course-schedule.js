@@ -13,19 +13,26 @@ var canFinish = function(numCourses, prerequisites) {
         inOrder[preReq]++;
     }
 
-    const queue = []
+    const visited = new Array(numCourses).fill(false);
+    const inRecusion = [...visited];
     for(let i = 0; i < numCourses; i++) {
-        if(inOrder[i] === 0) queue.push(i);
+        if(!visited[i] && DFS(i)) return false;
     }
 
-    while(queue.length) {
-        const course = queue.shift();
-        const d = map.get(course) || []
-        for(const preReq of d) {
-            inOrder[preReq]--;
-            if(inOrder[preReq] === 0) queue.push(preReq);
+    function DFS(i) {
+        if(visited[i] && inRecusion[i]) return true;
+        if(visited[i]) return false;
+        visited[i] = true;
+        inRecusion[i] = true;
+
+        const preReq = map.get(i) || [];
+        for(const course of preReq) {
+            if(DFS(course)) return true;;
         }
+        inRecusion[i] = false;
+        return false;
+
     }
 
-    return inOrder.every((d) => d === 0);
+    return true;
 };
