@@ -3,18 +3,16 @@
  * @return {number}
  */
 var findDuplicate = function(nums) {
-    
     let i = 0;
 
-    while (i < nums.length) {
-        if (nums[i] !== i + 1) {
-            let correctIdx = nums[i] - 1;
-            if (nums[i] === nums[correctIdx]) {
-                return nums[i];
-            }
-            [nums[i], nums[correctIdx]] = [nums[correctIdx], nums[i]];
-        } else {
-            i++;
+    while(i < nums.length) {
+        if(nums[i] === i + 1)  i++;
+        else {
+            const next = nums[i] - 1
+            // console.log(nums)
+            if(nums[i] === nums[next]) return nums[next];
+            [nums[i], nums[next]] = [nums[next], nums[i]];
+
         }
     }
 };
