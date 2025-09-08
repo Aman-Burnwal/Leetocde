@@ -3,23 +3,13 @@
  * @return {number}
  */
 var climbStairs = function(n) {
-    let count = 0;
-   
-    const map = [];
+    const dp = new Array(n + 2).fill(-1)
     return helper(n)
+    function helper (step) {
+        if(step === 0) return 1;
+        if(step < 0) return 0;
+        if(dp[step] != -1) return dp[step]
 
-    
-
-
-    function helper(n) {
-
-        if(1 >=  n) {
-            return 1;
-        }
-        if(map[n] > 0) return map[n];
-
-        let a = helper(n - 1);
-        let b = helper(n - 2);
-        return map[n] = a + b;
+        return dp[step] = helper(step - 1) + helper(step - 2)
     }
 };
