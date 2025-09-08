@@ -5,22 +5,24 @@
 var subsets = function(nums) {
 
     const ans = [];
-    const temp = [];
-    gen(0);
+
+    helper([], 0)
     return ans;
-
-
-    function gen(i) {
-
-        if(i == nums.length) {
-            ans.push([...temp]);
-            return
-        }
-
-        temp.push(nums[i])
-        gen(i + 1);
-        temp.pop();
-        gen(i + 1);
-    }
     
+    function helper(temp, idx) {
+
+
+        if(idx >= nums.length) {
+            ans.push([...temp]);
+            return;
+        }
+        
+
+        helper(temp, idx  + 1);
+
+        temp.push(nums[idx]);
+        helper(temp, idx + 1);
+        temp.pop()
+    }
+
 };
