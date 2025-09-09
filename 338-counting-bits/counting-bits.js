@@ -4,7 +4,7 @@
  */
 var countBits = function(n) {
     
-    const ans = new Array(n + 1).fill(0)
+    const ans = [0]
 
     for(let i = 0; i <= n; i++) {
 
