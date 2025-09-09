@@ -1,10 +1,10 @@
-/**
- * @param {number[]} nums
- * @return {number}
- */
 var missingNumber = function(nums) {
-    const len = nums.length;
-    const sum = nums.reduce((acc, curr) => acc + curr, 0);
+    let n = nums.length;
+    let xor = 0;
 
-    return (len * (len + 1)) / 2 - sum;
+    for(let i = 0; i < nums.length; i++) {
+        xor = xor ^ i ^ nums[i]
+    }
+
+    return xor ^ n;
 };
