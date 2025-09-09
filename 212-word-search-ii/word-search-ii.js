@@ -4,97 +4,86 @@
  * @return {string[]}
  */
 var findWords = function(board, words) {
+    const dir = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+    const ans = new Array()
+    const rowLen = board.length;
+    const colLen = board[0].length;
 
-    let n = board.length;
-    let m = board[0].length;
-
-    const ans = new Array();
-    const root =  createTrie();
-
+    const Tree = new createTrie();
 
     for(const word of words) {
-
-        insertTrie(word);
+        insertTreeNode(word)
     }
 
-    let idx = 0;
-
-
-
-    for(let i = 0; i < n; i++) {
-
-        for(let j = 0; j < m; j++) {
-
-            idx = board[i][j].charCodeAt(0) - 97;
-
-            if(root.children[idx]) searchTrie(i, j, root);
+    for(let row = 0; row < rowLen; row++) {
+        for(let col = 0; col < colLen; col++) {
+          searchWord(row, col, Tree)  
         }
     }
+
 
     return ans;
 
 
-    function createTrie() {
+
+    function searchWord(row, col, root) {
+        if(row >= rowLen || col >= colLen || row < 0 || col < 0) return;
+        if(board[row][col] === "") return;
+
+        const index = board[row][col].charCodeAt(0) - 97;
+        root = root.children[index];
+        if(!root) return;
         
-        return {
-            children: new Array(26).fill(null), 
-            isEnd: false,
-            word: null,
-        };
+        if(root.isEnd) {
+            ans.push(root.word);
+            root.isEnd = false;
+
+        }
+
+        
+
+
+        const ch = board[row][col]; 
+        board[row][col] = "";
+
+        dir.forEach(([x, y]) => {
+            const x1 = row + x;
+            const y1 = col + y;
+
+            searchWord(x1, y1, root)
+
+        })
+
+        board[row][col] = ch;
+        
+
+
+
+
     }
 
-    function insertTrie( word) {
-        let current = root;
+    function createTrie() {
+        return {
+            children : new Array(26).fill(null),
+            isEnd : false,
+            word: ""
+        }
+    }
 
-        for (const ch of word) {
+    function insertTreeNode (word) {
+        let node = Tree;
 
-            let ind = ch.charCodeAt(0) - 97; 
+        for(let i = 0; i < word.length; i++) {
+            const index = word.charCodeAt(i) - 97;
 
-            if (!current.children[ind]) {
-                current.children[ind] = createTrie();
+            if(node.children[index] === null) {
+                const newNode = new createTrie();
+                node.children[index] = newNode;
             }
 
-            current = current.children[ind];
+            node = node.children[index];
         }
-
-       
-        current.isEnd = true;
-        current.word = word;
+        node.isEnd = true;
+        node.word = word;
     }
-
-    function searchTrie(i, j, root) {
-
-        if(i < 0 || j < 0 || i >= n || j >= m) return;
-
-        let idx = board[i][j].charCodeAt(0) - 97;
-        
-        if(board[i][j] == "@" || !root.children[idx] ) return;
-
-        root = root.children[idx];
-
-        if(root.isEnd) {
-            root.isEnd = false;
-            ans.push(root.word)
-            root.word = "";
-        }
-        
-        let char = board[i][j];
-        board[i][j] = "@";
-
-        searchTrie(i - 1, j, root);
-        searchTrie(i + 1, j, root);
-        searchTrie(i, j - 1, root);
-        searchTrie(i, j + 1, root);
-
-        board[i][j] = char;
-
-        
-
-    }
-
-    
-
-        
-
-    
 };
