@@ -5,67 +5,54 @@
  */
 var wordBreak = function(s, wordDict) {
 
-    const root = createTrie();
+    const Tree = new createTrie();
 
     for(const word of wordDict) {
-        insertTrie(root, word)
+        insertWord(word, Tree);
     }
-    const memo = new Array(s.length).fill(undefined); 
-    return searchWord(0, root)
+    
 
+    function createTrie () {
+        return {
+            children : new Array(26).fill(null),
+            ends : false
+        }
+    }
+
+    function insertWord(word, Tree) {
+        for(const ch of word) {
+            const idx = ch.charCodeAt(0) - 97;
+            if(Tree.children[idx] === null) {
+                const newNode = new createTrie();
+                Tree.children[idx] = newNode;
+            }
+            Tree = Tree.children[idx];
+        }
+        Tree.ends = true;
+    }
+
+
+    const memo = new Array(s.length);
+    return searchWord(0)
 
     function searchWord(i) {
-       
+    
         if (i === s.length) return true;
+        if(memo[i] !=  undefined) return memo[i]
 
-       
-        if (memo[i] !== undefined) return memo[i];
+        let root = Tree;
 
-        let current = root;
+        for(let idx = i; idx < s.length; idx++) {
 
-        
-        for (let j = i; j < s.length; j++) {
+            const index = s.charCodeAt(idx) - 97;
+            if(!root.children[index]) break;
 
-            let idx = s.charCodeAt(j) - 97;
+            root = root.children[index];
 
-            if (!current.children[idx]) break;
-            
-
-            current = current.children[idx];
-
-            if (current.endWords && searchWord(j + 1)) return memo[i] = true; 
-            
+            if(root.ends && searchWord(idx + 1)) return  memo[i] = true;
         }
 
-       
         return memo[i] = false;
     
     }
-
-
-
-    function createTrie() {
-
-        return {
-            children: new Array(26).fill(null),
-            endWords: false,
-         
-        }
-    }
-
-    function insertTrie(root, word) {
-
-
-        for(const ch of word) {
-            let idx = ch.charCodeAt(0) - 97;
-            if(!root.children[idx]) {
-                root.children[idx] = createTrie();
-            }
-
-            root = root.children[idx];
-        }
-
-        root.endWords = true;
-    }
-    
 };
