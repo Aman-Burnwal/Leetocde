@@ -4,17 +4,11 @@
  */
 var countBits = function(n) {
     
-    const ans = [];
+    const ans = new Array(n + 1).fill(0)
 
     for(let i = 0; i <= n; i++) {
 
-        let t = i;
-        let count = 0;
-        while(t) {
-            count += (t & 1);
-            t = t >> 1;
-        }
-        ans.push(count)
+       ans[i] = (ans[i >> 1] + (i & 1))
     }
     return ans;
 };
