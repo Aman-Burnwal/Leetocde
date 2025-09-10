@@ -23,8 +23,6 @@ var minimumTeachings = function(n, languages, friendships) {
         }
     }
 
-    console.log(sadUsers);
-
     const array = new Array(n + 2).fill(0)
 
     for(const u of [...sadUsers]) {
