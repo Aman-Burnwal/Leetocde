@@ -18,7 +18,6 @@ var isPossibleDivide = function(nums, k) {
 
         let count = freq.get(keys[i]);
         if(count === 0) {
-            freq.delete(keys[i]);
             continue;
         }
     
