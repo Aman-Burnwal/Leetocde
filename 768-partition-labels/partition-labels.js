@@ -3,36 +3,30 @@
  * @return {number[]}
  */
 var partitionLabels = function(s) {
-    
-    const arr = new Array(26).fill(-1);
-
-    for(let i = s.length - 1; i >= 0; i--) {
-
-        let char = s.charCodeAt(i) - 97;
-
-        if(arr[char] == -1) arr[char] = i;
-    }
-
-    let count = 0;
-    let max = 0;
-    const ans = []; 
-
+    const last = new Array(26);
+    const ans = []
 
     for(let i = 0; i < s.length; i++) {
-
-        let char = s.charCodeAt(i) - 97;
-        count++;
-        max = Math.max(max, arr[char]);
-
-        if(i == max ) {
-            ans.push(count);
-            count = 0;
-        }
-     
+        let idx = s.charCodeAt(i) - 97;
+        last[idx] = i;
     }
 
+    let i = 0;
 
-    return ans;
+    while(i < s.length) {
 
+        const start = i;
+        let end = last[s.charCodeAt(i) - 97];
 
+        while(i < end) {
+            i++;
+            end = Math.max(end, last[s.charCodeAt(i) - 97]);
+        }
+        i++;
+        ans.push(i - start)
+    }
+
+    return ans
+
+  
 };
