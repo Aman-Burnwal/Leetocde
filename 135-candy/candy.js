@@ -3,41 +3,13 @@
  * @return {number}
  */
 var candy = function(ratings) {
-
-    const cand = new Array(ratings.length);
-
-
-    for(let i = 0; i < ratings.length; i++) {
-
-        cand[i] = 1;
-    }
-
+    const candies = new Array(ratings.length).fill(1);
 
     for(let i = 1; i < ratings.length; i++) {
-
-        if(ratings[i] > ratings[i - 1]) {
-             cand[i] = Math.max(cand[i - 1] + 1, cand[i])
-
-        }
+        if(ratings[i] > ratings[i - 1]) candies[i] = Math.max(candies[i], candies[i - 1] + 1)
     }
-
-    for(let i = ratings.length - 2; i >= 0; i--) {
-
-        if(ratings[i] > ratings[i +1]) {
-            cand[i] = Math.max(cand[i + 1] + 1, cand[i])
-    
-        }
+    for(let i = ratings.length - 2; i  >= 0; i--) {
+        if(ratings[i] > ratings[i + 1]) candies[i] = Math.max(candies[i], candies[i + 1] + 1)
     }
-
-
-    let sum = 0;
-   
-
-
-    for(let c of cand) {
-
-        sum += c;
-    }
-    return sum;
-    
+    return candies.reduce((acc, curr) => acc + curr, 0);
 };
