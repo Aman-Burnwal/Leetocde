@@ -23,7 +23,6 @@ var intToRoman = function(num) {
 
     let idx = map.length - 1;
     while(num > 0 ) {
-        console.log(num, idx)
         if(map[idx][1] <= num) {
             str.push(map[idx][0]);
             num -= map[idx][1];
