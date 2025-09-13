@@ -19,16 +19,16 @@ var intToRoman = function(num) {
         ["M", 1000]
     ]
 
-    let str = "";
+    let str = []
 
     let idx = map.length - 1;
     while(num > 0 ) {
         console.log(num, idx)
         if(map[idx][1] <= num) {
-            str += map[idx][0];
+            str.push(map[idx][0]);
             num -= map[idx][1];
         }
         else idx--;
     }
-    return str;
+    return str.join("");
 };
