@@ -9,21 +9,20 @@ var maxOperations = function(s) {
 
     let index = 0;
     while(index < s.length) {
-        if(s[index] === "0") {
+        while(s[index] === "0" && index < s.length) {
             index++ 
-            continue;
+        
         }
         
         while(s[index] === "1" && index < s.length) {
             index++;
             ones++;
         }
-        let isShifted = false
+        let prevIndex = index;
         while(s[index] < s.length && s[index] === "0") {
             index++;
-            isShifted = true;
         } 
-        if(isShifted) count += ones;
+        if(prevIndex != index) count += ones;
     }
 
     return count;
