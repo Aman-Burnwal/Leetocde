@@ -3,10 +3,7 @@
  * @return {number}
  */
 var minimumOperations = function(nums) {
-    let count = 0;
-    for(let index = 0; index < nums.length; index++) {
-        if(nums[index] % 3) count++;
-    }
-    return count;
+    
+    return nums.reduce((acc, curr) => curr % 3 ? acc + 1 : acc, 0);
    
 };
