@@ -9,11 +9,15 @@ var sumFourDivisors = function(nums) {
     for(const num of nums) {
         let currSum = 0;
         let count = 0;
-        for(let i = 1; i <= num; i++ ) {
+        for(let i = 1; i <= Math.floor(Math.sqrt(num)); i++ ) {
             if(num % i === 0) {
                 count++;
                 currSum += i;
-                // currSum += num / i;
+
+                if(num / i !== i) {
+                    currSum += num / i;
+                    count++;
+                }
                 if(count === 5) break;
             }
         }
