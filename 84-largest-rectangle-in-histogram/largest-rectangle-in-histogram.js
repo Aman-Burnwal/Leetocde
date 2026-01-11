@@ -3,32 +3,37 @@
  * @return {number}
  */
 var largestRectangleArea = function(heights) {
-    const left = [];
-    const right = [];
+    
+    const rowLen = heights.length;
+    const left = new Array(rowLen);
+    const right = new Array(rowLen);
 
     left[0] = -1;
-
-    for(let i = 1; i < heights.length; i++) {
-        let lastSmallIdx = i - 1;
-        while(lastSmallIdx >= 0 && heights[lastSmallIdx] >= heights[i]) {
-            lastSmallIdx = left[lastSmallIdx];
+    for(let row = 1; row < rowLen; row++) {
+        let lastSmallIndex = row - 1;
+        while(lastSmallIndex >= 0 && heights[lastSmallIndex] >= heights[row]) {
+            lastSmallIndex = left[lastSmallIndex];
         }
-        left[i] = lastSmallIdx;
+        left[row] = lastSmallIndex;
     }
 
-    right[heights.length -1] = heights.length;
     
-    for(let j = heights.length - 2; j >= 0; j--) {
-        let lastSmallIdx = j + 1;
-        while(lastSmallIdx < heights.length &&  heights[lastSmallIdx] >= heights[j]) {
-            lastSmallIdx = right[lastSmallIdx];
+    right[rowLen - 1] = rowLen
+    for(let row = rowLen - 2; row >= 0; row--) {
+        let lastSmallIndex = row + 1;
+        while(lastSmallIndex < rowLen && heights[lastSmallIndex] >= heights[row]) {
+            lastSmallIndex = right[lastSmallIndex];
         }
-        right[j] = lastSmallIdx;
+        right[row] = lastSmallIndex;
     }
-    let max = 0;
-    for(let i = 0; i < heights.length; i++) {
-        let width = right[i] - left[i] - 1;
-        max = Math.max(width * heights[i], max)
+
+    let maxArea = 0;
+
+    for(let index = 0; index < rowLen; index++) {
+        const height = heights[index];
+        const width = right[index] - left[index] - 1;
+        const area = height * width;
+        maxArea = Math.max(area, maxArea);
     }
-    return max;
+    return maxArea;
 };
