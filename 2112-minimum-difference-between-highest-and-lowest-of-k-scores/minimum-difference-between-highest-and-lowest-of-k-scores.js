@@ -8,14 +8,10 @@ var minimumDifference = function(nums, k) {
 
     nums.sort((a, b) => a - b);
 
-    let mini = Math.max(...nums);
-    let ans = mini;
+    let ans = 1e7
 
     for(let i = 0; i < nums.length - k + 1 ; i++) {
-
         ans = Math.min(ans, nums[i + k - 1] - nums[i]);
-
-        console.log(nums[i + k - 1], nums[i])
     }
 
     return ans;
