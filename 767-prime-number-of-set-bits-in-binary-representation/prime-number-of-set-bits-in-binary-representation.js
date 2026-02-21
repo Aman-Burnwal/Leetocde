@@ -9,10 +9,7 @@ var countPrimeSetBits = function(left, right) {
     let total = 0;
     while(left <= right) {
         const str =  left.toString(2);
-        let count = str.split("").reduce((acc, curr) => {
-            if(curr == 1) acc++;
-            return acc;
-        }, 0)
+        let count = str.split("").filter(l => l == 1).length
         if(prime.has(count)) total++;
         left++;
     }
