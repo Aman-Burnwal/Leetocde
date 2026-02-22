@@ -4,10 +4,9 @@ public:
         
         int curr = -1;
         int maxi = 0;
-        for(int idx = 0; idx < 32 && n > 0; idx++) {
+        for(int idx = 0; n > 0; idx++) {
 
             if((1 & n) == 1) {
-                cout<< n << endl;
                 curr++;
                 maxi = max(maxi, curr);
                 curr = 0;
