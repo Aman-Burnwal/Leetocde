@@ -17,6 +17,10 @@ var findKthBit = function(n, k) {
             len--;
         }
 
+        if(s.length > k) return s[k - 1]
+
+    
+
         
        
        
