@@ -15,9 +15,9 @@ var findKthBit = function(n, k) {
         while(len >= 0) {
             s.push(s[len] === "1" ? "0" : "1");
             len--;
+            if(s.length > k) return s[k - 1]
         }
 
-        if(s.length > k) return s[k - 1]
 
     
 
