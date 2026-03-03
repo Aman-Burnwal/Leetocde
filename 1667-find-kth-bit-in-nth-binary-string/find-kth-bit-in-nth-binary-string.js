@@ -7,11 +7,19 @@ var findKthBit = function(n, k) {
     s = ["0"];
 
     for(let i = 1; i <= n; i++) {
-        // s.push("1");
 
-        // console.log(s.slice(0, i).reverse().map(item => item === "1" ? "0" : "1"))
-        s.push("1", ...s.slice(0).reverse().map(item => item === "1" ? "0" : "1"))
-        // console.log(s)
+        let len = s.length - 1;
+
+        s.push("1")
+
+        while(len >= 0) {
+            s.push(s[len] === "1" ? "0" : "1");
+            len--;
+        }
+
+        
+       
+       
     }
 
     // console.log(s)
