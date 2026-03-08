@@ -3,25 +3,25 @@
  * @return {string}
  */
 var findDifferentBinaryString = function(nums) {
-
-  
-  
-
     
-    let size = nums.length;
-
+    const set = new Set(nums);
     let ans = ""
 
-    for(let i = 0; i < size; i++) {
+    function check(str) {
 
-        ans += nums[i][i] == "1" ? "0" : "1";
+        if(ans.length) return;
+        if(str.length === nums[0].length) {
+
+            if(!set.has(str)) ans = str;
+            return
+        }
+
+
+
+        return check(str + "0") + check(str + "1")
     }
 
+    check("")
+
     return ans;
-
-    
-    
-
-
-    
 };
