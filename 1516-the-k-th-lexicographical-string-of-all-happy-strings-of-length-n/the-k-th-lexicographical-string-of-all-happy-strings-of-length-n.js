@@ -4,31 +4,38 @@
  * @return {string}
  */
 var getHappyString = function(n, k) {
-
+    
     let count = 0;
-    let ans = "";
-    let str = "abc";
-    let stack = new Array();
-    
+    let ans = ""
+    let strings = [];
+    generate("");
+    return count === k ? ans : ""
+    function generate(s) {
 
-    function generater () {
-    
-        if(stack.length == n) {
-            count++;
-            count == k ? ans = stack.join(""): "";
-            
+        if(count === k) return;
+        if(s.length === n) {
+            strings.push(s);
+            ans = s;
+            count++
             return;
         }
-        if(ans != "") return;
-        
-        for(const ch of str) {
-            stack.push(ch);
-            if(stack.length == 1) generater();
-            else if(stack[stack.length - 2] != ch) generater();
-            stack.pop();
+
+        if(s.length === 0) {
+            generate(s + "a");
+            generate(s + "b");
+            generate(s + "c");
+        }
+        else if (s[s.length - 1] === "a") {
+            generate(s + "b");
+            generate(s + "c")
+        }
+        else if (s[s.length - 1] === "b") {
+            generate(s + "a");
+            generate(s + "c")
+        }
+        else {
+            generate(s + "a");
+            generate(s + "b")
         }
     }
-
-    generater();
-    return ans;
 };
