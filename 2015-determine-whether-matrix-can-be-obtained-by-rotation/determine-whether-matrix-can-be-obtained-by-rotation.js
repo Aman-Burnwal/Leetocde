@@ -5,87 +5,33 @@
  */
 var findRotation = function(mat, target) {
     
-    let canBeEqual = true;
-    let fn = target.length;
-    let fm = target[0].length;
+    let r0 = true, r1 = true, r2 = true, r3 = true;
+    let fn = mat.length;
+    let fm = mat[0].length;
 
-    let mn = mat.length;
-    let mm = mat[0].length;
+    if (fn !== fm) return false;
+
     // phase 1
 
-    if(fn != mn || fm != mm) {
-        canBeEqual = false;
-    }
-    else {
-        for(let i = 0; i < fn; i++) {
-            if(canBeEqual === false) break;
-            for(let j = 0; j < fm; j++) {
-                if(mat[i][j] != target[i][j]) {
-                    canBeEqual = false;
-                    break;
-                }
-            }
-        }
-    }
-
-    if(canBeEqual) return true;
-    canBeEqual = true;
-
-    // phase 2
-    if(fn != mm || fm != mn) {
-        canBeEqual = false;
-    }
-    else {
-        for(let i = 0; i < fn; i++) {
-            if(canBeEqual === false) break;
-            for(let j = 0; j < fm; j++) {
-                if(mat[i][j] != target[j][fm - i - 1]) {
-                    canBeEqual = false;
-                    break;
-                }
-            }
-        }
-    }
-
-    if(canBeEqual) return true;
-    canBeEqual = true;
-
-
-        // phase 3 (180 degree)
-    if(fn != mn || fm != mm) {
-        canBeEqual = false;
-    }
-    else {
     for(let i = 0; i < fn; i++) {
-            if(!canBeEqual) break;
-            for(let j = 0; j < fm; j++) {
-                if(mat[i][j] != target[fn - i - 1][fm - j - 1]) {
-                    canBeEqual = false;
-                    break;
-                }
+        for(let j = 0; j < fm; j++) {
+            if(r0 && mat[i][j] != target[i][j]) {
+                r0 = false;
             }
-        } 
-    }
+            if (r1 && mat[i][j] !== target[j][fn - i - 1]) {
+                r1 = false;
+            }
 
-    if(canBeEqual) return true;
-    canBeEqual = true;
+            if (r2 && mat[i][j] !== target[fn - i - 1][fn - j - 1]) {
+                r2 = false;
+            }
 
-
-    // phase 4 (270 degree)
-    if(fn != mm || fm != mn) {
-        canBeEqual = false;
-    }
-    else {
-        for(let i = 0; i < fn; i++) {
-            if(!canBeEqual) break;
-            for(let j = 0; j < fm; j++) {
-                if(mat[i][j] != target[fm - j - 1][i]) {
-                    canBeEqual = false;
-                    break;
-                }
+            if (r3 && mat[i][j] !== target[fn - j - 1][i]) {
+                r3 = false;
             }
         }
     }
-
-    return canBeEqual;
+    
+    return r0 || r1 || r2 || r3
+   
 };
