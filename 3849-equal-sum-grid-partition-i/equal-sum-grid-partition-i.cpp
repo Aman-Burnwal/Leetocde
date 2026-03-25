@@ -4,13 +4,11 @@ public:
         int rowSize = grid.size();
         int colSize = grid[0].size();
 
-        vector<double> rowSums(rowSize, 0);
-        vector<double> colSums(colSize, 0);
+        vector<long long> rowSums(rowSize, 0);
+        vector<long long> colSums(colSize, 0);
 
-        double totalSum = 0;
+        long long totalSum = 0;
         
-
-
         for(int row = 0; row < rowSize; row++) {
             for(int col = 0; col < colSize; col++) {
                 rowSums[row] += grid[row][col];
@@ -20,22 +18,22 @@ public:
             }
         }
 
-        double curr = 0;
+        long long curr = 0;
 
-        double d = 2;
-        double one = 1;
+
+        if(totalSum & 1) return false;
 
 
         for(int i = 0; i < rowSize - 1; i++) {
             curr += rowSums[i];
-            if((curr * d) == (totalSum)) return true;
+            if((curr * 2) == (totalSum)) return true;
         }
 
         curr = 0;
 
         for(int i = 0; i < colSize - 1; i++) {
             curr += colSums[i];
-            if((curr * d) == (totalSum)) return true;
+            if((curr * 2) == (totalSum)) return true;
         }
 
         return false;
