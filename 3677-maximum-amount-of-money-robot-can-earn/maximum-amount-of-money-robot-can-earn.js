@@ -9,7 +9,7 @@ var maximumAmount = function(coins) {
 
 
   const map = Array.from({ length: n }, () =>
-        Array.from({ length: m }, () => Array(4).fill(null))
+        Array.from({ length: m }, () => Array(3))
     );
 
     return dfs(0, 0, 2) ;
@@ -25,7 +25,7 @@ var maximumAmount = function(coins) {
     }
 
     let max = -Infinity;
-    if(map[i][j][left] != null) return map[i][j][left]
+    if(map[i][j][left] != undefined) return map[i][j][left]
 
 
     if(coins[i][j] < 0 && left > 0) {
