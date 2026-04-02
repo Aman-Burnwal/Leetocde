@@ -11,14 +11,11 @@ var maximumAmount = function(coins) {
   const map = Array.from({ length: n }, () =>
         Array.from({ length: m }, () => Array(4).fill(null))
     );
-    
+
     return dfs(0, 0, 2) ;
 
   function dfs(i, j , left) {
     if(isSafeNot(i, j)) return -Infinity
-
-    
-
 
     if(i === n - 1 && j === m - 1) {
        
@@ -38,11 +35,8 @@ var maximumAmount = function(coins) {
         max = Math.max(used, unUsed);
 
     }
-    else if(coins[i][j] < 0) {
-        max = coins[i][j] + Math.max(dfs(i, j + 1, left), dfs(i + 1, j, left));
-    }
     else {
-        max = coins[i][j] +  Math.max(dfs(i, j + 1, left), dfs(i + 1, j, left));
+        max = coins[i][j] + Math.max(dfs(i, j + 1, left), dfs(i + 1, j, left));
     }
 
     map[i][j][left] = max;
