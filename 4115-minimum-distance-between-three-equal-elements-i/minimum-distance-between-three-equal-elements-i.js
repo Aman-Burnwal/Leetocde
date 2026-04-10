@@ -23,11 +23,11 @@ var minimumDistance = function(nums) {
 
         for(let i = 0; i < value.length; i++) {
             for(let j = i + 2; j < value.length; j++) {
-                ans = Math.min(ans, 2 * ( value[j] - value[i]))
+                ans = Math.min(ans, ( value[j] - value[i]))
             }
         }
 
     }
 
-    return ans === 10000000 ? -1 : ans
+    return ans === 10000000 ? -1 : ans * 2
 };
