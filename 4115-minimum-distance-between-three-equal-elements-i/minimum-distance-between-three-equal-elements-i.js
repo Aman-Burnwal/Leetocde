@@ -19,12 +19,9 @@ var minimumDistance = function(nums) {
     
     for(const value of Object.values(mapObj)) {
 
-        if(value.length <= 2) continue;
+        for(let i = 0; i < value.length - 2; i++) {
+            ans = Math.min(ans, ( value[i + 2] - value[i]))
 
-        for(let i = 0; i < value.length; i++) {
-            for(let j = i + 2; j < value.length; j++) {
-                ans = Math.min(ans, ( value[j] - value[i]))
-            }
         }
 
     }
