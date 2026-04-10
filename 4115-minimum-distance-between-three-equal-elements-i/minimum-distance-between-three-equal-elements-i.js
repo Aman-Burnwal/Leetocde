@@ -22,12 +22,8 @@ var minimumDistance = function(nums) {
         if(value.length <= 2) continue;
 
         for(let i = 0; i < value.length; i++) {
-            for(let j = i + 1; j < value.length; j++) {
-                for(let k = j + 1; k < value.length; k++) {
-                    ans = Math.min(ans, ((value[j] - value[i]) + (value[k] - value[j]) + (value[k] - value[i])))
-
-                    
-                }
+            for(let j = i + 2; j < value.length; j++) {
+                ans = Math.min(ans, 2 * ( value[j] - value[i]))
             }
         }
 
