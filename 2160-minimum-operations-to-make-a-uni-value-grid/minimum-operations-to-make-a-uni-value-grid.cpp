@@ -10,7 +10,7 @@ public:
             }
         }
 
-        sort(arr.begin(), arr.end());
+        nth_element(arr.begin(), arr.begin() + arr.size() / 2, arr.end());
 
     
         int mid = arr.size()  / 2;
