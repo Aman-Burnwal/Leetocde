@@ -1,25 +1,19 @@
 class Solution {
 public:
 
-    vector<int> buildLPS(string pattern) {
+    vector<int> buildLPS(string &pattern) {
         int n = pattern.size();
         vector<int> lps(n, 0);
 
-        int len = 0;
-        for(int i = 1; i < n; ) {
-            if(pattern[i] == pattern[len]) {
-                len++;
-                lps[i] = len;
-                i++;
-            } else {
-                if(len != 0) {
-                    len = lps[len - 1];
-                } else {
-                    lps[i] = 0;
-                    i++;
-                }
-            }
+        int j = 0;
+        for(int i = 1; i < n; i++) {
+           while(j > 0 && pattern[i] != pattern[j]) {
+            j = lps[j - 1];
+           }
+           if(pattern[i] == pattern[j]) j++;
+           lps[i] = j;
         }
+
         return lps;
     }
 
