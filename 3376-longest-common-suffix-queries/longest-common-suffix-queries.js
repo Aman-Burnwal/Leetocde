@@ -4,76 +4,69 @@
  * @return {number[]}
  */
 var stringIndices = function(wordsContainer, wordsQuery) {
-    const root = new Trie();
-    let min = Infinity;
-    let indx = 0;
-    let ind;
-    const ans = new Array();
 
-    for(let i = 0; i <  wordsContainer.length; i++) {
-        insert(wordsContainer[i], i, wordsContainer[i].length )
-        if(min > wordsContainer[i].length) {
-            min = wordsContainer[i].length;
-            indx = i;
-        }
-    }
-    for(const word of wordsQuery) {
-        ind = search(word);
-        if(ind == Infinity)ind = indx;
-        ans.push(ind);
-    }
-
-    return ans;
-
-    function Trie () {
+    function createNode() {
         return {
-            children: new Array(26).fill(null),
-            length: null,
-            indx: null
+            len: Infinity,
+            minLen: Infinity,
+            minLenIdx: Infinity,
+            next: new Array(26).fill(null)
+        };
+    }
+
+    const tree = createNode();
+    // let minIndexLen = Infinity;
+    let minIndexLen = 0;
+
+    for (let j = 1; j < wordsContainer.length; j++) {
+        if (wordsContainer[j].length < wordsContainer[minIndexLen].length) {
+            minIndexLen = j;
         }
     }
 
-    function search(word) {
+    // insert example
+    for (let j = 0; j < wordsContainer.length; j++) {
 
-        let indx = Infinity;
-        let curr = root;
-        let ind;
-        for(let i = word.length - 1; i >= 0; i--) {
+        const word = wordsContainer[j];
+        // minIndexLen = Math.min(word.length, minIndexLen);
+        let node = tree;
 
-            ind = word[i].charCodeAt(0) - 97;
+        for (let i = word.length - 1; i >= 0; i--) {
 
-            if(curr.children[ind] == null) break;
-           curr = curr.children[ind];
-           indx = curr.indx;
-        }
-        return indx;
-    }
+            const idx = word.charCodeAt(i) - 97;
 
-    function insert(word, idx, length) {
-
-        let curr = root;
-        let indx;
-
-        for(let i = length - 1; i >= 0; i--) {
-
-            indx = word[i].charCodeAt(0) - 97;
-
-
-            if(curr.children[indx] == null) curr.children[indx] = new Trie();
-
-            curr = curr.children[indx];
-
-            if(!curr.length) {
-                curr.length = length;
-                curr.indx = idx;
+            if (node.next[idx] === null) {
+                
+                node.next[idx] = createNode();
             }
-            else if(curr.length > length) {
-                curr.length = length;
-                curr.indx = idx;
-            }
-            
-            
 
+            node = node.next[idx];
+            if (node.minLen > word.length) {
+                node.minLen = word.length;
+                node.minLenIdx = j;
+            }
         }
     }
+
+    const LCSA = [];
+
+    
+    for(const word of wordsQuery ) {
+        // let len = Infinity;
+        let j = Infinity;
+        let root = tree.next;
+        for(let idx = word.length - 1; idx >= 0; idx--) {
+            const charCode = word.charCodeAt(idx) - 97; 
+            
+            if(root[charCode] == null) {
+                // j = Infinity;
+                break;
+            }
+            // console.log(root);
+            j = root[charCode].minLenIdx;
+            root = root[charCode].next;  
+        }
+        LCSA.push(j === Infinity ? minIndexLen : j );
+    }
+    return LCSA;
 };
