@@ -21,6 +21,7 @@ var removeCoveredIntervals = function(intervals) {
                 count++;
                 intervals[j][0] = -1;
             }
+            else if( d > b) break;
         }
     }
 
